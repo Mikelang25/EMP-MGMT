@@ -24,7 +24,7 @@ module.exports = function (app) {
           let sampleFile = req.files.sampleFile;
           console.log(sampleFile)        
           // Use the mv() method to place the file somewhere on your server
-          sampleFile.mv(__dirname + '/../documents/' + sampleFile.name, function(err) {
+          sampleFile.mv(__dirname + '/../issue_documents/' + sampleFile.name, function(err) {
             if (err)
               return res.status(500).send(err);
         

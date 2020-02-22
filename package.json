@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Mikelang25/EMP-MGMT/issues"
   },
-  "homepage": "https://github.com/Mikelang25/EMP-MGMT#readme"
+  "homepage": "https://github.com/Mikelang25/EMP-MGMT#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "mysql2": "^2.1.0",
+    "nylas": "^4.9.0",
+    "sequelizer": "^1.1.4"
+  }
 }
