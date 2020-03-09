@@ -1,20 +1,11 @@
 var db = require('../models')
-const Nylas = require('nylas');
-require('dotenv').config()
 
-
-Nylas.config({
-    clientId: process.env.NYLAS_CLIENT,
-    clientSecret: process.env.NYLAS_SECRET,
-});
-
-const nylas = Nylas.with(process.env.NYLAS_AUTH);
 
 
 module.exports = function (app) {
-    
+
     //downloads the file from the server
-    app.get('/download/:filename', function (req, res) {
+    app.get('/download/supporting/doc/:filename', function (req, res) {
         const file = __dirname + '/../issue_documents/' + req.params.filename;
         res.download(file); // Set disposition and send it.
     });
@@ -39,8 +30,8 @@ module.exports = function (app) {
 
 
     // Locates the users for user Auth
-    app.get('/api/find/users', function (req, res) {
-        db.User.findAll({}).then(function (respUsers) {
+    app.get('api/find/employees', function (req, res) {
+        db.Employee.findAll({}).then(function (respUsers) {
             console.log(respUsers)
             res.json(respUsers)
         })
@@ -49,63 +40,33 @@ module.exports = function (app) {
     // Find all issues for a given user
     app.get('/api/find/issues/:id', function (req, res) {
         db.Issue.findAll({
-            where: { user_id: req.params.id },
-            order: [
-                ['task_day', 'ASC'],
-                ['task_stime', 'ASC']
-            ]
+            where: { employee_id: req.params.id }
         }).then(function (respTasks) {
             console.log(respTasks)
             res.json(respTasks)
         })
     })
 
-    //Get all tasks and emails them to the user 
-    app.get('/api/email/tasks/:id/:email', function (req, res) {
-        db.Task.findAll({
-            where: { user_id: req.params.id },
-            order: [
-                ['task_day', 'ASC'],
-                ['task_stime', 'ASC']
-            ]
-        }).then(function (dbTasks) {
-            console.log(dbTasks)
-            res.json(dbTasks)
-
-            var taskList = "<h1>Your Schedule</h1><br>"
-            for (var i = 0; i < dbTasks.length; i++) {
-                taskList += "Event Day: " + dbTasks[i].task_day + "<br>" +
-                    "Event Name: " + dbTasks[i].task_name + "<br>" +
-                    "Start Time: " + dbTasks[i].task_stime + "<br>" +
-                    "End Time: " + dbTasks[i].task_etime + "<br>" +
-                    "Event Notes: " + dbTasks[i].task_comment + "<br><br>"
-            }
-            taskList += "<br>From, <br> Your MyCalendar Team"
-
-            const draft = nylas.drafts.build({
-                subject: 'Your Upcoming Schedule',
-                to: [{ name: 'MyCalendar User', email: req.params.email }],
-                body: taskList
-            });
-
-            // Send the draft
-            draft.send().then(message => {
-                console.log(`${message.id} was sent`);
-            });
-        })
-    })
-
-    // Create a new example
-    app.post('/api/tasks', function (req, res) {
-        db.Task.create(req.body).then(function (taskExample) {
-            res.json(taskExample)
+    // Create a new employee issue 
+    app.post('/api/issue', function (req, res) {
+        db.Issue.create(req.body).then(function (conIssue) {
+            res.json(conIssue)
         })
     })
     //post a new user
-    app.post('/api/users', function (req, res) {
+    app.post('/api/user', function (req, res) {
         db.User.create(req.body).then(function (userExample) {
             res.json(userExample)
             console.log(userExample)
+
+        })
+    })
+
+    //posts a new employee
+    app.post('/api/employee', function (req, res) {
+        db.Employee.create(req.body).then(function (conEmployee) {
+            res.json(conEmployee)
+            console.log(conEmployee)
 
         })
     })
