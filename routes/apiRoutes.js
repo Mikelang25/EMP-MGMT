@@ -1,4 +1,5 @@
 var db = require('../models')
+var nodemailer = require('nodemailer');
 
 
 
@@ -51,8 +52,37 @@ module.exports = function (app) {
     app.post('/api/issue', function (req, res) {
         db.Issue.create(req.body).then(function (conIssue) {
             res.json(conIssue)
+
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'mal3jackie@gmail.com',
+                    pass: 'Carnelli7ct'
+                },
+                tls: {
+                  // do not fail on invalid certs
+                  rejectUnauthorized: false
+                }
+            });
+
+            var mailOptions = {
+                from: 'mal3jackie@gmail.com',
+                to: 'mlang@rockitco.com',
+                subject: 'TEST email - Project 3',
+                text: 'That was easy!'
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            })
         })
     })
+
+
     //post a new user
     app.post('/api/user', function (req, res) {
         db.User.create(req.body).then(function (userExample) {

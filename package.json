@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
     "mysql2": "^2.1.0",
+    "nodemailer": "^6.4.4",
     "nylas": "^4.9.0",
     "sequelizer": "^1.1.4"
   }

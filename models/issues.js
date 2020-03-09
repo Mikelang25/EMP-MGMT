@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
           len: [1]
         }
       },
-      issue_short_descr: {
+      issue_full_descr: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
