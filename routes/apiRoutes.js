@@ -48,10 +48,11 @@ module.exports = function (app) {
         })
     })
 
-    // Create a new employee issue 
+    // Create a new employee issue and sends email to employee
     app.post('/api/issue', function (req, res) {
         db.Issue.create(req.body).then(function (conIssue) {
             res.json(conIssue)
+            console.log(conIssue)
 
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -68,8 +69,8 @@ module.exports = function (app) {
             var mailOptions = {
                 from: 'mal3jackie@gmail.com',
                 to: 'mlang@rockitco.com',
-                subject: 'TEST email - Project 3',
-                text: 'That was easy!'
+                subject: conIssue.issue_short_descr,
+                text: "Issue Description: " + conIssue.issue_full_descr
             };
 
             transporter.sendMail(mailOptions, function (error, info) {

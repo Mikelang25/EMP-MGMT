@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.INTEGER,
         allowNull: false
       },      
-      emp_hire: {
+      emp_hire_date: {
         type: DataTypes.DATEONLY,
         allowNull: false
       }
