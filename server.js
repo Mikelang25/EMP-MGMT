@@ -18,7 +18,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 require('./routes/apiRoutes.js')(app)
-require('./routes/htmlRoutes.js')(app)
+
+// app.get("*", function(req, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {

@@ -31,7 +31,7 @@ module.exports = function (app) {
 
 
     // Locates the users for user Auth
-    app.get('api/find/employees', function (req, res) {
+    app.get('/api/find/employees', function (req, res) {
         db.Employee.findAll({}).then(function (respUsers) {
             console.log(respUsers)
             res.json(respUsers)
