@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import EmployeeDropItem from "../employeeList";
+import InfoTab from "../Info";
 import "./manage.css";
 
 class Manage extends Component {
 
     state = {
         employees: [],
-        selectEmployee:"",
-        myTab:""
+        selectEmployee: "",
+        myTab: "",
+        employeeInfo: []
     };
 
     componentDidMount() {
@@ -18,11 +20,11 @@ class Manage extends Component {
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-          [name]: value
+            [name]: value
         });
-      };
+    };
 
-    selectedTab = (empPage) =>{
+    selectedTab = (empPage) => {
         const desiredTab = empPage.target.value
         this.setState({
             myTab: desiredTab
@@ -32,10 +34,11 @@ class Manage extends Component {
 
     selectEmployee = (emp) => {
         const selectedEmp = parseInt(emp.target.value);
+        const selectedInfo = this.state.employees.filter(employee => employee.id === selectedEmp)
         this.setState({
-            selectEmployee: selectedEmp
+            selectEmployee: selectedEmp,
+            employeeInfo: selectedInfo
         });
-        console.log(selectedEmp)
     }
 
     loadEmployees = () => {
@@ -61,7 +64,7 @@ class Manage extends Component {
                         </select>
                     </div>
                     <div className="col-md-10 text-center main-container">
-                        
+                        {/* buttons to produce modals will go here */}
                     </div>
                 </div>
                 <div className="row">
@@ -69,6 +72,24 @@ class Manage extends Component {
                         <button className="tablinks" value="Info" onClick={this.selectedTab}>Info</button>
                         <button className="tablinks" value="Performance" onClick={this.selectedTab}>Performance</button>
                         <button className="tablinks" value="Issues" onClick={this.selectedTab}>Issues</button>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        {this.state.employeeInfo.map(info => (
+                            <div className="info-container">
+                                <img class="emp-image"src={info.emp_photo}/>
+                            <InfoTab
+                                key={info.id}
+                                fname={info.emp_fname}
+                                lname={info.emp_lname}
+                                email={info.emp_email}
+                                pay={info.emp_pay}
+                                hire={info.emp_hire_date}
+                                handleInputChange={this.handleInputChange}
+                            />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

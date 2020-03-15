@@ -30,6 +30,11 @@ module.exports = function (sequelize, DataTypes) {
       emp_hire_date: {
         type: DataTypes.DATEONLY,
         allowNull: false
+      },
+      emp_photo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "noimage.png"
       }
     })
   

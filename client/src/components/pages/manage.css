@@ -8,7 +8,18 @@
   background-color:white;
   color:black;
   margin-top:20px;
-  border-radius:10px
+  border-radius:10px;
+  padding-left: 10px;
+}
+
+.info-container{
+  border:1pt solid black;
+  padding-bottom:80px;
+}
+
+.emp-image{
+  float: left;
+  padding:50px;
 }
 
 .tab {
