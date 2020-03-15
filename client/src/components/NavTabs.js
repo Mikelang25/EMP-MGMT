@@ -14,7 +14,7 @@ function NavTabs() {
             to="/manage"
             className={window.location.pathname === "/manage" ? "nav-link active" : "nav-link"}
           >
-            My Employees
+            Employees
           </Link>
         </li>
       </ul>
