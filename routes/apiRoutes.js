@@ -126,4 +126,19 @@ module.exports = function (app) {
             res.json(dbExample)
         })
     })
+
+    
+    app.put('/api/employee', function (req, res) {
+        db.Employee.update({
+            emp_fname: req.body.emp_fname,
+            emp_lname: req.body.emp_lname,
+            emp_email: req.body.emp_email,
+            emp_pay: req.body.emp_pay,
+            emp_hire_date: req.body.emp_hire_date
+        }, {
+            where: { id: req.body.id }
+        }).then(function (dbExample) {
+            res.json(dbExample)
+        })
+    })
 }

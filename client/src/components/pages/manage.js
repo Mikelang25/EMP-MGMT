@@ -12,7 +12,12 @@ class Manage extends Component {
         employees: [],
         employeeInfo: [],
         selectEmployee: "",
-        myTab: "Info"
+        myTab: "Info",
+        emp_fname: "",
+        emp_lname: "",
+        emp_email: "",
+        emp_pay: "",
+        emp_hire_date: ""
     };
 
     componentDidMount() {
@@ -41,21 +46,37 @@ class Manage extends Component {
             selectEmployee: selectedEmp,
             employeeInfo: selectedInfo
         });
+        console.group(this.state)
     }
 
     loadEmployees = () => {
         API.getEmployees()
             .then(res => this.setState({ employees: res.data }))
             .catch(err => console.log(err));
-    };
+    }
 
-    renderPage = () => {
+    updateEmployee = event => {
+        event.preventDefault();
+            API.updateEmployee({
+                id: this.state.selectEmployee,
+                emp_fname: this.state.emp_fname,
+                emp_lname: this.state.emp_lname,
+                emp_email: this.state.emp_email,
+                emp_pay: this.state.emp_pay,
+                emp_hire_date: this.state.emp_hire_date
+            })
+                .then(res => this.loadEmployees())
+                .catch(err => console.log(err));
+    
+    }
+
+    renderPage(){
         if (this.state.myTab === "Info") {
             return (
                 <div className="col-md-12">
                     {this.state.employeeInfo.map(info => (
                         <div className="info-container">
-                            <img class="emp-image" src={info.emp_photo} />
+                            <img alt="photo" className="emp-image" src={info.emp_photo} />
                             <InfoTab
                                 key={info.id}
                                 fname={info.emp_fname}
@@ -63,7 +84,8 @@ class Manage extends Component {
                                 email={info.emp_email}
                                 pay={info.emp_pay}
                                 hire={info.emp_hire_date}
-                                handleInputChange={this.handleInputChange}
+                                onChange={this.handleInputChange}
+                                updateEmployee = {this.updateEmployee}
                             />
                         </div>
                     ))}
@@ -77,7 +99,7 @@ class Manage extends Component {
                 <div className="col-md-12">
                     {this.state.employeeInfo.map(info => (
                         <div className="info-container">
-                            <img class="emp-image" src={info.emp_photo} />
+                            <img alt="" className="emp-image" src={info.emp_photo} />
                             <InfoTab
                                 key={info.id}
                                 fname={info.emp_fname}
@@ -85,7 +107,8 @@ class Manage extends Component {
                                 email={info.emp_email}
                                 pay={info.emp_pay}
                                 hire={info.emp_hire_date}
-                                handleInputChange={this.handleInputChange}
+                                onChange={this.handleInputChange}
+                                updateEmployee = {this.updateEmployee}
                             />
                         </div>
                     ))}
@@ -110,7 +133,7 @@ class Manage extends Component {
                         </select>
                     </div>
                     <div className="col-md-10 text-center main-container">
-                        {/* buttons to produce modals will go here */}
+
                     </div>
                 </div>
                 <div className="row">
