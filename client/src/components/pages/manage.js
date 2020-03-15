@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import EmployeeDropItem from "../employeeList";
 import InfoTab from "../Info";
+import Performance from "../Performance";
+import Issues from "../Issues";
 import "./manage.css";
 
 class Manage extends Component {
 
     state = {
         employees: [],
+        employeeInfo: [],
         selectEmployee: "",
-        myTab: "",
-        employeeInfo: []
+        myTab: "Info"
     };
 
     componentDidMount() {
@@ -47,6 +49,50 @@ class Manage extends Component {
             .catch(err => console.log(err));
     };
 
+    renderPage = () => {
+        if (this.state.myTab === "Info") {
+            return (
+                <div className="col-md-12">
+                    {this.state.employeeInfo.map(info => (
+                        <div className="info-container">
+                            <img class="emp-image" src={info.emp_photo} />
+                            <InfoTab
+                                key={info.id}
+                                fname={info.emp_fname}
+                                lname={info.emp_lname}
+                                email={info.emp_email}
+                                pay={info.emp_pay}
+                                hire={info.emp_hire_date}
+                                handleInputChange={this.handleInputChange}
+                            />
+                        </div>
+                    ))}
+                </div>);
+        } else if (this.state.myTab === "Performance") {
+            return <Performance/>;
+        } else if (this.state.myTab === "Issues") {
+            return <Issues/>;
+        } else {
+            return (
+                <div className="col-md-12">
+                    {this.state.employeeInfo.map(info => (
+                        <div className="info-container">
+                            <img class="emp-image" src={info.emp_photo} />
+                            <InfoTab
+                                key={info.id}
+                                fname={info.emp_fname}
+                                lname={info.emp_lname}
+                                email={info.emp_email}
+                                pay={info.emp_pay}
+                                hire={info.emp_hire_date}
+                                handleInputChange={this.handleInputChange}
+                            />
+                        </div>
+                    ))}
+                </div>);
+        }
+    };
+
     render() {
         return (
             <div className="wrapper">
@@ -75,22 +121,7 @@ class Manage extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-12">
-                        {this.state.employeeInfo.map(info => (
-                            <div className="info-container">
-                                <img class="emp-image"src={info.emp_photo}/>
-                            <InfoTab
-                                key={info.id}
-                                fname={info.emp_fname}
-                                lname={info.emp_lname}
-                                email={info.emp_email}
-                                pay={info.emp_pay}
-                                hire={info.emp_hire_date}
-                                handleInputChange={this.handleInputChange}
-                            />
-                            </div>
-                        ))}
-                    </div>
+                    {this.renderPage()}
                 </div>
             </div>
         );
