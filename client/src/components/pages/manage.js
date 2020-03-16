@@ -18,7 +18,7 @@ class Manage extends Component {
         emp_email: "",
         emp_pay: "",
         emp_hire_date: "",
-        emp_photo: ""
+        emp_photo: null
     };
 
     componentDidMount() {
@@ -43,13 +43,13 @@ class Manage extends Component {
 
     selectEmployee = (emp) => {
         const selectedEmp = parseInt(emp.target.value);
-        const selectedInfo = this.state.employees.filter(employee => employee.id == selectedEmp)
+        const selectedInfo = this.state.employees.filter(employee => employee.id === selectedEmp)
         const currfname = selectedInfo[0].emp_fname
         const currlname = selectedInfo[0].emp_lname
         const curremail = selectedInfo[0].emp_email
         const currpay = selectedInfo[0].emp_pay
         const currhire = selectedInfo[0].emp_hire_date
-        const currphoto = selectedInfo[0].emp_photo
+
         this.setState({
             emp_fname: currfname,
             emp_lname: currlname,
@@ -62,12 +62,21 @@ class Manage extends Component {
         console.log(this.state)
     }
 
-    uploadFile = (file) => {
-        console.log(file)
-        file.preventDefault();
-        API.uploadFile(file.target.value)
-            .then(res => console.log("upload successful"))
+    setPhoto = (event) => {
+        this.setState({
+            emp_photo: event.target.files[0]
+          })
+        console.log(event.target.files[0])
+    }
+
+    uploadFile = () => {
+        const data = new FormData()
+        data.append('file', this.state.emp_photo)
+        console.log(this.state.emp_photo)
+        API.uploadFile(data)
+            .then(res => console.log(res.statusText))
             .catch(err => console.log(err));
+
     }
 
     loadEmployees = () => {
@@ -113,7 +122,8 @@ class Manage extends Component {
                                 photo={info.emp_photo}
                             />
                             <label className="lblSubmit" >Photo</label><br></br>
-                            <input className="fileSubmit" type="file" name="emp_photo" onChange={this.uploadFile}></input>
+                            <input className="fileSubmit" type="file" name="emp_photo" onChange={this.setPhoto}></input>
+                            <input className="fileSubmit" type="submit" value="Upload" onClick={this.uploadFile}/>
                         </div>
                     ))}
                 </div>);
@@ -121,25 +131,6 @@ class Manage extends Component {
             return <Performance />;
         } else if (this.state.myTab === "Issues") {
             return <Issues />;
-        } else {
-            return (
-                <div className="col-md-12">
-                    {this.state.employeeInfo.map(info => (
-                        <div className="info-container">
-                            <img alt="" className="emp-image" src={info.emp_photo} />
-                            <InfoTab
-                                key={info.id}
-                                fname={info.emp_fname}
-                                lname={info.emp_lname}
-                                email={info.emp_email}
-                                pay={info.emp_pay}
-                                hire={info.emp_hire_date}
-                                onChange={this.handleInputChange}
-                                updateEmployee={this.updateEmployee}
-                            />
-                        </div>
-                    ))}
-                </div>);
         }
     };
 

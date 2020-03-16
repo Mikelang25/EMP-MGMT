@@ -1,5 +1,6 @@
-var db = require('../models')
-var nodemailer = require('nodemailer');
+const db = require('../models')
+const nodemailer = require('nodemailer');
+var multer = require('multer')
 
 
 
@@ -11,21 +12,45 @@ module.exports = function (app) {
         res.download(file); // Set disposition and send it.
     });
 
-    //uploads an attachment to the documents folder
-    app.post('/uploadfile', function (req, res) {
-        if (!req.files || Object.keys(req.files).length === 0) {
-            return res.status(400).send('No files were uploaded.');
-        }
+    // //uploads an attachment to the documents folder
+    // app.post('/uploadfile2', function (req, res) {
+    //     if (!req.files || Object.keys(req.files).length === 0) {
+    //         return res.status(400).send('No files were uploaded.');
+    //     }
 
-        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-        let sampleFile = req.files.sampleFile;
-        console.log(sampleFile)
-        // Use the mv() method to place the file somewhere on your server
-        sampleFile.mv(__dirname + '/../public/' + sampleFile.name, function (err) {
-            if (err)
-                return res.status(500).send(err);
-            res.send('File uploaded!');
-        });
+    //     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    //     let sampleFile = req.files.sampleFile;
+    //     console.log(sampleFile)
+    //     // Use the mv() method to place the file somewhere on your server
+    //     sampleFile.mv(__dirname + '/public/' + sampleFile.name, function (err) {
+    //         if (err)
+    //             return res.status(500).send(err);
+    //         res.send('File uploaded!');
+    //     });
+    // });
+
+    app.post('/uploadfile', function (req, res) {
+        console.log(req.body)
+        var storage = multer.diskStorage({
+            destination: function (req, file, cb) {
+            cb(null, 'client/public')
+          },
+          filename: function (req, file, cb) {
+            cb(null, Date.now() + '-' +file.originalname )
+          }
+      })
+        
+       var upload = multer({ storage: storage }).single('file')
+
+        upload(req, res, function (err) {
+            if (err instanceof multer.MulterError) {
+                return res.status(500).json(err)
+            } else if (err) {
+                return res.status(500).json(err)
+            }
+            console.log("file successfully uploaded")
+            return res.status(200).send(req.file)
+        })
     });
 
 
@@ -60,8 +85,8 @@ module.exports = function (app) {
                     pass: 'Carnelli7ct'
                 },
                 tls: {
-                  // do not fail on invalid certs
-                  rejectUnauthorized: false
+                    // do not fail on invalid certs
+                    rejectUnauthorized: false
                 }
             });
 
@@ -126,7 +151,7 @@ module.exports = function (app) {
         })
     })
 
-    
+
     app.put('/api/employee', function (req, res) {
         db.Employee.update({
             emp_fname: req.body.emp_fname,
