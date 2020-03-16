@@ -1,9 +1,5 @@
 import React from "react";
 
-const styles= {
-
-}
-
 function Performance(props) {
 
     return (

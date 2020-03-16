@@ -21,7 +21,7 @@ class Manage extends Component {
     };
 
     componentDidMount() {
-        this.loadEmployees()        
+        this.loadEmployees()
     }
 
     handleInputChange = event => {
@@ -36,16 +36,25 @@ class Manage extends Component {
         this.setState({
             myTab: desiredTab
         });
-        console.log(desiredTab)
     }
 
     selectEmployee = (emp) => {
         const selectedEmp = parseInt(emp.target.value);
-        const selectedInfo = this.state.employees.filter(employee => employee.id === selectedEmp)
+        const selectedInfo = this.state.employees.filter(employee => employee.id == selectedEmp)
+        const currfname = selectedInfo[0].emp_fname
+        const currlname = selectedInfo[0].emp_lname
+        const curremail = selectedInfo[0].emp_email
+        const currpay = selectedInfo[0].emp_pay
+        const currhire = selectedInfo[0].emp_hire_date
         this.setState({
+            emp_fname: currfname,
+            emp_lname: currlname,
+            emp_email: curremail,
+            emp_pay: currpay,
+            emp_hire_date: currhire,
             selectEmployee: selectedEmp,
             employeeInfo: selectedInfo
-        });
+        })
         console.log(this.state)
     }
 
@@ -53,11 +62,14 @@ class Manage extends Component {
         API.getEmployees()
             .then(res => this.setState({
                 employees: res.data
-            }))
+            })
+            
+            )
             .catch(err => console.log(err));
     }
 
     updateEmployee = event => {
+        console.log(event.target.value)
         event.preventDefault();
         API.updateEmployee({
             id: this.state.selectEmployee,
@@ -123,7 +135,7 @@ class Manage extends Component {
             <div className="wrapper">
                 <div className="row">
                     <div className="col-md-2 text-center drop-container">
-                        <select className="dropdown" value = {this.state.selectEmployee} onChange={this.selectEmployee}>
+                        <select className="dropdown" defaultValue="" onChange={this.selectEmployee}>
                             {this.state.employees.map(employee => (
                                 <EmployeeDropItem
                                     key={employee.id}

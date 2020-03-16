@@ -23,7 +23,7 @@ function InfoTab(props) {
 
     return (
         <div className="col-md-12">
-            <form>
+            <form onSubmit={props.updateEmployee}>
                 <label style={styles.labels}>First name:</label><br></br>
                 <input style={styles.inputs} type="text" name="emp_fname" onChange={props.onChange} defaultValue={props.fname} ></input><br></br>
                 <label style={styles.labels}>Last name:</label><br></br>
@@ -34,8 +34,7 @@ function InfoTab(props) {
                 <input style={styles.inputs} type="text" name="emp_pay" onChange={props.onChange} defaultValue={props.pay}></input><br></br>
                 <label style={styles.labels}>Hire Date:</label><br></br>
                 <input style={styles.inputs} type="text" name="emp_hire_date" onChange={props.onChange} defaultValue={props.hire}></input><br></br>
-
-                <button style={styles.button} onClick={props.updateEmployee}>Update</button>
+                <input style={styles.button} type="submit" value="Update" />    
             </form>
         </div>
     );
