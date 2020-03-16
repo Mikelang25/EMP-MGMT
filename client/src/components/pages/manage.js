@@ -18,7 +18,8 @@ class Manage extends Component {
         emp_email: "",
         emp_pay: "",
         emp_hire_date: "",
-        emp_photo: null
+        emp_photo: null,
+        photo_name:""
     };
 
     componentDidMount() {
@@ -49,7 +50,8 @@ class Manage extends Component {
         const curremail = selectedInfo[0].emp_email
         const currpay = selectedInfo[0].emp_pay
         const currhire = selectedInfo[0].emp_hire_date
-
+        const currPhoto = selectedInfo[0].emp_photo
+        
         this.setState({
             emp_fname: currfname,
             emp_lname: currlname,
@@ -57,16 +59,17 @@ class Manage extends Component {
             emp_pay: currpay,
             emp_hire_date: currhire,
             selectEmployee: selectedEmp,
-            employeeInfo: selectedInfo
+            employeeInfo: selectedInfo,
+            photo_name:currPhoto
         })
         console.log(this.state)
     }
 
     setPhoto = (event) => {
         this.setState({
-            emp_photo: event.target.files[0]
+            emp_photo: event.target.files[0],
+            photo_name:event.target.files[0].name
           })
-        console.log(event.target.files[0])
     }
 
     uploadFile = () => {
@@ -76,7 +79,6 @@ class Manage extends Component {
         API.uploadFile(data)
             .then(res => console.log(res.statusText))
             .catch(err => console.log(err));
-
     }
 
     loadEmployees = () => {
@@ -96,7 +98,8 @@ class Manage extends Component {
             emp_lname: this.state.emp_lname,
             emp_email: this.state.emp_email,
             emp_pay: this.state.emp_pay,
-            emp_hire_date: this.state.emp_hire_date
+            emp_hire_date: this.state.emp_hire_date,
+            emp_photo:this.state.photo_name
         })
             .then(res => this.loadEmployees())
             .catch(err => console.log(err));
@@ -109,7 +112,7 @@ class Manage extends Component {
                 <div className="col-md-12">
                     {this.state.employeeInfo.map(info => (
                         <div className="info-container">
-                            <img alt="photo" className="emp-image" src={info.emp_photo} />
+                            <img alt="photo" className="emp-image" src={info.emp_photo}/>
                             <InfoTab
                                 key={info.id}
                                 fname={info.emp_fname}
@@ -119,14 +122,18 @@ class Manage extends Component {
                                 hire={info.emp_hire_date}
                                 onChange={this.handleInputChange}
                                 updateEmployee={this.updateEmployee}
-                                photo={info.emp_photo}
                             />
-                            <label className="lblSubmit" >Photo</label><br></br>
-                            <input className="fileSubmit" type="file" name="emp_photo" onChange={this.setPhoto}></input>
-                            <input className="fileSubmit" type="submit" value="Upload" onClick={this.uploadFile}/>
+                            <div className="row">
+                            <div className="col-md-3 photo-container">
+                                <label className="lblSubmit" >Photo</label><br></br>
+                                <input className="fileSubmit" type="file" name="emp_photo" onChange={this.setPhoto}></input>
+                                <input className="btn-submit" type="submit" value="Upload" onClick={this.uploadFile}/>
+                            </div>
+                            </div>
                         </div>
                     ))}
-                </div>);
+                </div>             
+                );
         } else if (this.state.myTab === "Performance") {
             return <Performance />;
         } else if (this.state.myTab === "Issues") {

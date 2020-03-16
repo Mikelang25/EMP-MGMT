@@ -4,12 +4,10 @@ const fileUpload = require('express-fileupload');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require('./models')
-const cors = require('cors');
 
 
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
 app.use(fileUpload());
 
 app.use(express.static('public'))

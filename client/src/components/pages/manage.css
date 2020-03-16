@@ -23,12 +23,24 @@
 }
 
 .lblSubmit{
-  margin-left:50px;
-  margin-top:20px;
+  margin-top:10px;
 }
 
 .fileSubmit{
+
+}
+
+.btn-submit{
+  margin-left:-80px;
+}
+
+.photo-container{
+  height: 100px;
+  float:left;
   margin-left:50px;
+  border:1pt solid black;
+  margin-top:30px;
+
 }
 
 .tab {
