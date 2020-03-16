@@ -21,7 +21,7 @@ class Manage extends Component {
     };
 
     componentDidMount() {
-        this.loadEmployees();
+        this.loadEmployees()        
     }
 
     handleInputChange = event => {
@@ -46,31 +46,33 @@ class Manage extends Component {
             selectEmployee: selectedEmp,
             employeeInfo: selectedInfo
         });
-        console.group(this.state)
+        console.log(this.state)
     }
 
     loadEmployees = () => {
         API.getEmployees()
-            .then(res => this.setState({ employees: res.data }))
+            .then(res => this.setState({
+                employees: res.data
+            }))
             .catch(err => console.log(err));
     }
 
     updateEmployee = event => {
         event.preventDefault();
-            API.updateEmployee({
-                id: this.state.selectEmployee,
-                emp_fname: this.state.emp_fname,
-                emp_lname: this.state.emp_lname,
-                emp_email: this.state.emp_email,
-                emp_pay: this.state.emp_pay,
-                emp_hire_date: this.state.emp_hire_date
-            })
-                .then(res => this.loadEmployees())
-                .catch(err => console.log(err));
-    
+        API.updateEmployee({
+            id: this.state.selectEmployee,
+            emp_fname: this.state.emp_fname,
+            emp_lname: this.state.emp_lname,
+            emp_email: this.state.emp_email,
+            emp_pay: this.state.emp_pay,
+            emp_hire_date: this.state.emp_hire_date
+        })
+            .then(res => this.loadEmployees())
+            .catch(err => console.log(err));
+
     }
 
-    renderPage(){
+    renderPage() {
         if (this.state.myTab === "Info") {
             return (
                 <div className="col-md-12">
@@ -85,15 +87,15 @@ class Manage extends Component {
                                 pay={info.emp_pay}
                                 hire={info.emp_hire_date}
                                 onChange={this.handleInputChange}
-                                updateEmployee = {this.updateEmployee}
+                                updateEmployee={this.updateEmployee}
                             />
                         </div>
                     ))}
                 </div>);
         } else if (this.state.myTab === "Performance") {
-            return <Performance/>;
+            return <Performance />;
         } else if (this.state.myTab === "Issues") {
-            return <Issues/>;
+            return <Issues />;
         } else {
             return (
                 <div className="col-md-12">
@@ -108,7 +110,7 @@ class Manage extends Component {
                                 pay={info.emp_pay}
                                 hire={info.emp_hire_date}
                                 onChange={this.handleInputChange}
-                                updateEmployee = {this.updateEmployee}
+                                updateEmployee={this.updateEmployee}
                             />
                         </div>
                     ))}
@@ -121,7 +123,7 @@ class Manage extends Component {
             <div className="wrapper">
                 <div className="row">
                     <div className="col-md-2 text-center drop-container">
-                        <select className="dropdown" onChange={this.selectEmployee}>
+                        <select className="dropdown" value = {this.state.selectEmployee} onChange={this.selectEmployee}>
                             {this.state.employees.map(employee => (
                                 <EmployeeDropItem
                                     key={employee.id}
