@@ -22,6 +22,15 @@
   padding:50px;
 }
 
+.lblSubmit{
+  margin-left:50px;
+  margin-top:20px;
+}
+
+.fileSubmit{
+  margin-left:50px;
+}
+
 .tab {
     overflow: hidden;
     margin-top:15px;

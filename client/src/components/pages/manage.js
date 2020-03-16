@@ -18,7 +18,7 @@ class Manage extends Component {
         emp_email: "",
         emp_pay: "",
         emp_hire_date: "",
-        emp_photo:""
+        emp_photo: ""
     };
 
     componentDidMount() {
@@ -31,6 +31,8 @@ class Manage extends Component {
             [name]: value
         });
     };
+
+
 
     selectedTab = (empPage) => {
         const desiredTab = empPage.target.value
@@ -60,13 +62,19 @@ class Manage extends Component {
         console.log(this.state)
     }
 
+    uploadFile = (file) => {
+        console.log(file)
+        file.preventDefault();
+        API.uploadFile(file.target.value)
+            .then(res => console.log("upload successful"))
+            .catch(err => console.log(err));
+    }
+
     loadEmployees = () => {
         API.getEmployees()
             .then(res => this.setState({
                 employees: res.data
-            })
-            
-            )
+            }))
             .catch(err => console.log(err));
     }
 
@@ -104,6 +112,8 @@ class Manage extends Component {
                                 updateEmployee={this.updateEmployee}
                                 photo={info.emp_photo}
                             />
+                            <label className="lblSubmit" >Photo</label><br></br>
+                            <input className="fileSubmit" type="file" name="emp_photo" onChange={this.uploadFile}></input>
                         </div>
                     ))}
                 </div>);
