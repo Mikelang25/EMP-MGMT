@@ -16,6 +16,9 @@ const styles= {
     button:{
         marginTop:"30px",
         marginLeft:"50px",
+    },
+    selectFile:{
+        marginLeft:"50px"
     }
 }
 
@@ -34,6 +37,8 @@ function InfoTab(props) {
                 <input style={styles.inputs} type="text" name="emp_pay" onChange={props.onChange} defaultValue={props.pay}></input><br></br>
                 <label style={styles.labels}>Hire Date:</label><br></br>
                 <input style={styles.inputs} type="text" name="emp_hire_date" onChange={props.onChange} defaultValue={props.hire}></input><br></br>
+                <label style={styles.labels}>Photo:</label><br></br>
+                <input style={styles.selectFile} type="file" name="emp_photo" onChange={props.onChange}></input><br></br>
                 <input style={styles.button} type="submit" value="Update" />    
             </form>
         </div>

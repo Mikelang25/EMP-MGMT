@@ -12,7 +12,7 @@ module.exports = function (app) {
     });
 
     //uploads an attachment to the documents folder
-    app.post('/upload/supporting/doc', function (req, res) {
+    app.post('/uploadfile', function (req, res) {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(400).send('No files were uploaded.');
         }
@@ -21,10 +21,9 @@ module.exports = function (app) {
         let sampleFile = req.files.sampleFile;
         console.log(sampleFile)
         // Use the mv() method to place the file somewhere on your server
-        sampleFile.mv(__dirname + '/../issue_documents/' + sampleFile.name, function (err) {
+        sampleFile.mv(__dirname + '/../public/' + sampleFile.name, function (err) {
             if (err)
                 return res.status(500).send(err);
-
             res.send('File uploaded!');
         });
     });

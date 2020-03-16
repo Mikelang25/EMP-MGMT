@@ -17,7 +17,8 @@ class Manage extends Component {
         emp_lname: "",
         emp_email: "",
         emp_pay: "",
-        emp_hire_date: ""
+        emp_hire_date: "",
+        emp_photo:""
     };
 
     componentDidMount() {
@@ -46,6 +47,7 @@ class Manage extends Component {
         const curremail = selectedInfo[0].emp_email
         const currpay = selectedInfo[0].emp_pay
         const currhire = selectedInfo[0].emp_hire_date
+        const currphoto = selectedInfo[0].emp_photo
         this.setState({
             emp_fname: currfname,
             emp_lname: currlname,
@@ -100,6 +102,7 @@ class Manage extends Component {
                                 hire={info.emp_hire_date}
                                 onChange={this.handleInputChange}
                                 updateEmployee={this.updateEmployee}
+                                photo={info.emp_photo}
                             />
                         </div>
                     ))}
