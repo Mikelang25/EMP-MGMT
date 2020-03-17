@@ -3,7 +3,11 @@ import API from "../../utils/API";
 import EmployeeDropItem from "../employeeList";
 import InfoTab from "../Info";
 import Performance from "../Performance";
+import ButtonCreate from "../buttoncreate";
 import Issues from "../Issues";
+import InfoModal from "../employeemodal";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 import "./manage.css";
 
 class Manage extends Component {
@@ -19,7 +23,8 @@ class Manage extends Component {
         emp_pay: "",
         emp_hire_date: "",
         emp_photo: null,
-        photo_name: ""
+        photo_name: "",
+        modalShow: false
     };
 
     componentDidMount() {
@@ -32,7 +37,6 @@ class Manage extends Component {
             [name]: value
         });
     };
-
 
 
     selectedTab = (empPage) => {
@@ -103,8 +107,31 @@ class Manage extends Component {
         })
             .then(res => this.loadEmployees())
             .catch(err => console.log(err));
-
     }
+
+    showModal = () => {
+        this.setState({
+            modalShow: true
+        })
+    }
+
+    hideModal = () => {
+        this.setState({
+            modalShow: false
+        })
+    }
+
+    getModal() {
+        return (
+            <div>
+                <Button className="emp-create" variant="primary" onClick={this.showModal}>
+                    Create Employee
+                </Button>
+                <InfoModal show={this.state.modalShow} onHide={this.hideModal} />
+            </div>
+        );
+    }
+
 
     renderPage() {
         if (this.state.myTab === "Info") {
@@ -167,8 +194,11 @@ class Manage extends Component {
                             ))}
                         </select>
                     </div>
-                    <div className="col-md-10 text-center main-container">
+                    <div className="col-md-7 text-center main-container">
 
+                    </div>
+                    <div className="col-md-2 text-right">
+                        {this.getModal()}
                     </div>
                 </div>
                 <div className="row">
