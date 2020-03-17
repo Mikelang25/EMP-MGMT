@@ -9,5 +9,8 @@ export default {
   },
   uploadFile:function(file){
     return axios.post("/uploadfile",file);
+  },
+  createEmployee:function(employee){
+    return axios.post("/api/employee",employee);
   }
 };

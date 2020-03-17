@@ -24,7 +24,13 @@ class Manage extends Component {
         emp_hire_date: "",
         emp_photo: null,
         photo_name: "",
-        modalShow: false
+        modalShow: false,
+        new_fname: "",
+        new_lname: "",
+        new_email: "",
+        new_pay: "",
+        new_hire_date: "",
+        new_photo: "noimage.png"
     };
 
     componentDidMount() {
@@ -39,11 +45,29 @@ class Manage extends Component {
     };
 
 
-    selectedTab = (empPage) => {
+    selectedTab = empPage => {
         const desiredTab = empPage.target.value
         this.setState({
             myTab: desiredTab
         });
+    }
+    
+
+    submitEmployee = event => {
+        event.preventDefault();
+        API.createEmployee({
+            emp_fname: this.state.new_fname,
+            emp_lname: this.state.new_lname,
+            emp_email: this.state.new_email,
+            emp_pay: this.state.new_pay,
+            emp_hire_date: this.state.new_hire_date,
+            emp_photo: this.state.new_photo
+        })
+            .then(res => {
+                this.hideModal()
+                this.loadEmployees()
+            })
+            .catch(err => console.log(err));
     }
 
     selectEmployee = (emp) => {
@@ -94,7 +118,6 @@ class Manage extends Component {
     }
 
     updateEmployee = event => {
-        console.log(event.target.value)
         event.preventDefault();
         API.updateEmployee({
             id: this.state.selectEmployee,
@@ -122,14 +145,25 @@ class Manage extends Component {
     }
 
     getModal() {
-        return (
-            <div>
-                <Button className="emp-create" variant="primary" onClick={this.showModal}>
-                    Create Employee
-                </Button>
-                <InfoModal show={this.state.modalShow} onHide={this.hideModal} />
-            </div>
-        );
+        if (this.state.myTab === "Info") {
+            return (
+                <div>
+                    <Button className="emp-create" variant="primary" onClick={this.showModal}>
+                        Create Employee
+                    </Button>
+                    <InfoModal
+                        show={this.state.modalShow}
+                        onHide={this.hideModal}
+                        onSubmit={this.submitEmployee}
+                        onChange={this.handleInputChange}
+                    />
+                </div>
+            );
+        } else if (this.state.myTab === "Issues") {
+
+        } else if (this.state.myTab === "Performance") {
+
+        }
     }
 
 

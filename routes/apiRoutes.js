@@ -95,7 +95,6 @@ module.exports = function (app) {
         db.Employee.create(req.body).then(function (conEmployee) {
             res.json(conEmployee)
             console.log(conEmployee)
-
         })
     })
 
