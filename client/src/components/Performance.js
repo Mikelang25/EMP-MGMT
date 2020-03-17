@@ -1,12 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
+import API from "../utils/API";
 
-function Performance(props) {
+class Performance extends Component {
 
-    return (
+
+    
+
+
+    render() {
+        return (
         <div className="col-md-12">
-            TEST 2
+            {this.props.employee} + 1
         </div>
-    );
-  }
-  
-  export default Performance;
+        );
+    }
+}
+
+export default Performance;

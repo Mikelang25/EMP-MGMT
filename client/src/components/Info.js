@@ -2,6 +2,7 @@ import React from "react";
 
 const styles= {
     labels:{
+        fontWeight:"bold",
         marginTop:"10px",
         marginLeft:"50px",
     },

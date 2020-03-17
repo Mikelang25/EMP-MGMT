@@ -1,12 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
+import API from "../utils/API";
 
-function Issues(props) {
+class Issues extends Component {
 
-    return (
+
+
+
+
+    render() {
+        return(
         <div className="col-md-12">
-            TEST 3
+            {this.props.employee}
         </div>
-    );
-  }
-  
-  export default Issues;
+        );
+    }
+}
+
+export default Issues;

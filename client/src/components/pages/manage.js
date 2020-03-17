@@ -19,7 +19,7 @@ class Manage extends Component {
         emp_pay: "",
         emp_hire_date: "",
         emp_photo: null,
-        photo_name:""
+        photo_name: ""
     };
 
     componentDidMount() {
@@ -51,7 +51,7 @@ class Manage extends Component {
         const currpay = selectedInfo[0].emp_pay
         const currhire = selectedInfo[0].emp_hire_date
         const currPhoto = selectedInfo[0].emp_photo
-        
+
         this.setState({
             emp_fname: currfname,
             emp_lname: currlname,
@@ -60,7 +60,7 @@ class Manage extends Component {
             emp_hire_date: currhire,
             selectEmployee: selectedEmp,
             employeeInfo: selectedInfo,
-            photo_name:currPhoto
+            photo_name: currPhoto
         })
         console.log(this.state)
     }
@@ -68,8 +68,8 @@ class Manage extends Component {
     setPhoto = (event) => {
         this.setState({
             emp_photo: event.target.files[0],
-            photo_name:event.target.files[0].name
-          })
+            photo_name: event.target.files[0].name
+        })
     }
 
     uploadFile = () => {
@@ -99,7 +99,7 @@ class Manage extends Component {
             emp_email: this.state.emp_email,
             emp_pay: this.state.emp_pay,
             emp_hire_date: this.state.emp_hire_date,
-            emp_photo:this.state.photo_name
+            emp_photo: this.state.photo_name
         })
             .then(res => this.loadEmployees())
             .catch(err => console.log(err));
@@ -111,33 +111,43 @@ class Manage extends Component {
             return (
                 <div className="col-md-12">
                     {this.state.employeeInfo.map(info => (
-                        <div className="info-container">
-                            <img alt="photo" className="emp-image" src={info.emp_photo}/>
-                            <InfoTab
-                                key={info.id}
-                                fname={info.emp_fname}
-                                lname={info.emp_lname}
-                                email={info.emp_email}
-                                pay={info.emp_pay}
-                                hire={info.emp_hire_date}
-                                onChange={this.handleInputChange}
-                                updateEmployee={this.updateEmployee}
-                            />
-                            <div className="row">
-                            <div className="col-md-3 photo-container">
-                                <label className="lblSubmit" >Photo</label><br></br>
-                                <input className="fileSubmit" type="file" name="emp_photo" onChange={this.setPhoto}></input>
-                                <input className="btn-submit" type="submit" value="Upload" onClick={this.uploadFile}/>
+                        <div className=" row info-container">
+                            <div className="col-md-4 main-container">
+                                <div className="image-container">
+                                    <img alt="photo" className="emp-image" src={info.emp_photo} />
+                                </div>
                             </div>
+                            <div className="col-md-7">
+                                <InfoTab
+                                    key={info.id}
+                                    fname={info.emp_fname}
+                                    lname={info.emp_lname}
+                                    email={info.emp_email}
+                                    pay={info.emp_pay}
+                                    hire={info.emp_hire_date}
+                                    onChange={this.handleInputChange}
+                                    updateEmployee={this.updateEmployee}
+                                />
+                                <div className="row">
+                                    <div className="col-md-4 photo-container">
+                                        <label className="lblSubmit" >Photo</label><br></br>
+                                        <input className="fileSubmit" type="file" name="emp_photo" onChange={this.setPhoto}></input>
+                                        <input className="btn-submit" type="submit" value="Upload" onClick={this.uploadFile} />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}
-                </div>             
-                );
+                </div>
+            );
         } else if (this.state.myTab === "Performance") {
-            return <Performance />;
+            return <Performance
+                employee={this.state.selectEmployee}
+            />;
         } else if (this.state.myTab === "Issues") {
-            return <Issues />;
+            return <Issues
+                employee={this.state.selectEmployee}
+            />;
         }
     };
 
@@ -163,9 +173,9 @@ class Manage extends Component {
                 </div>
                 <div className="row">
                     <div className="tab col-md-12">
-                        <button className="tablinks" value="Info" onClick={this.selectedTab}>Info</button>
-                        <button className="tablinks" value="Performance" onClick={this.selectedTab}>Performance</button>
-                        <button className="tablinks" value="Issues" onClick={this.selectedTab}>Issues</button>
+                        <button className="tablinks" value="Info" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/offices/16/000000/info.png" />Info</button>
+                        <button className="tablinks" value="Issues" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/office/16/000000/high-risk.png" />Issues</button>
+                        <button className="tablinks" value="Performance" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/plasticine/16/000000/area-chart.png" />Performance</button>
                     </div>
                 </div>
                 <div className="row">

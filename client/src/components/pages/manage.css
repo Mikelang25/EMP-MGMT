@@ -17,13 +17,25 @@
   padding-bottom:80px;
 }
 
+.main-container{
+  margin-left:40px;
+  margin-top:20px;
+}
+
+.image-container{
+  height:80%;
+  width: 90%;
+  border:2pt solid black;
+  text-align: center;
+}
+
 .emp-image{
-  float: left;
-  padding:50px;
+  padding:25px;
 }
 
 .lblSubmit{
-  margin-top:10px;
+  margin-top:5px;
+  font-weight: bold;
 }
 
 .fileSubmit{
@@ -31,14 +43,18 @@
 }
 
 .btn-submit{
-  margin-left:-80px;
+  margin-left:-60px;
+}
+
+.issue-img{
+  margin-right:10px;
 }
 
 .photo-container{
   height: 100px;
-  float:left;
-  margin-left:50px;
+  margin-left:80px;
   border:1pt solid black;
+  border-radius: 5px;
   margin-top:30px;
 
 }
