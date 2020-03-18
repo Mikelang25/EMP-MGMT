@@ -36,10 +36,8 @@ module.exports = function (app) {
     })
 
     // Find all issues for a given user
-    app.get('/api/find/issues/:id', function (req, res) {
-        db.Issue.findAll({
-            where: { employee_id: req.params.id }
-        }).then(function (respTasks) {
+    app.get('/api/find/issues', function (req, res) {
+        db.Issue.findAll({}).then(function (respTasks) {
             console.log(respTasks)
             res.json(respTasks)
         })

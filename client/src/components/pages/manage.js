@@ -4,16 +4,19 @@ import EmployeeDropItem from "../employeeList";
 import InfoTab from "../Info";
 import Performance from "../Performance";
 import ButtonCreate from "../buttoncreate";
-import Issues from "../Issues";
 import InfoModal from "../employeemodal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import "./manage.css";
+import Issue from "../issue"
+import "../issues.css";
 
 class Manage extends Component {
 
     state = {
         employees: [],
+        issues: [],
+        emp_issues:[],
         employeeInfo: [],
         selectEmployee: "",
         myTab: "Info",
@@ -30,11 +33,16 @@ class Manage extends Component {
         new_email: "",
         new_pay: "",
         new_hire_date: "",
-        new_photo: "noimage.png"
+        new_photo: "noimage.png",
+        issue_short_descr:"",
+        issue_date:"",
+        issue_full_descr:"",
+        confirm_date:""
     };
 
     componentDidMount() {
         this.loadEmployees()
+        this.findIssues()
     }
 
     handleInputChange = event => {
@@ -51,7 +59,7 @@ class Manage extends Component {
             myTab: desiredTab
         });
     }
-    
+
 
     submitEmployee = event => {
         event.preventDefault();
@@ -73,6 +81,7 @@ class Manage extends Component {
     selectEmployee = (emp) => {
         const selectedEmp = parseInt(emp.target.value);
         const selectedInfo = this.state.employees.filter(employee => employee.id === selectedEmp)
+        const issues = this.state.issues.filter(issue => issue.employee_id === selectedEmp)
         const currfname = selectedInfo[0].emp_fname
         const currlname = selectedInfo[0].emp_lname
         const curremail = selectedInfo[0].emp_email
@@ -88,8 +97,10 @@ class Manage extends Component {
             emp_hire_date: currhire,
             selectEmployee: selectedEmp,
             employeeInfo: selectedInfo,
-            photo_name: currPhoto
+            photo_name: currPhoto,
+            emp_issues:issues
         })
+
         console.log(this.state)
     }
 
@@ -116,7 +127,15 @@ class Manage extends Component {
             }))
             .catch(err => console.log(err));
     }
-    
+
+    findIssues = () => {
+        API.getIssues()
+            .then(res => this.setState({
+                issues: res.data
+            }))
+            .catch(err => console.log(err));
+    }
+
     updateEmployee = event => {
         event.preventDefault();
         API.updateEmployee({
@@ -206,11 +225,32 @@ class Manage extends Component {
                 employee={this.state.selectEmployee}
             />;
         } else if (this.state.myTab === "Issues") {
-            return <Issues
-                employee={this.state.selectEmployee}
-            />;
+            return (
+            <div className="wrapper">
+                <div className="col-md-12">
+                    <table className="table-issue">
+                        <tr>
+                            <th className="table-head">Issue</th>
+                            <th className="table-head">Date Created</th>
+                            <th className="table-head">Description</th>
+                            <th className="table-head">Confirm Date</th>
+                        </tr>
+                        {this.state.emp_issues.map(issue => (
+                            <Issue
+                                key={issue.id}
+                                issueShort={issue.issue_short_descr}
+                                issueDate={issue.issue_date}
+                                issueLong={issue.issue_full_descr}
+                                issueAccept={issue.confirm_date}
+                                onChange={this.handleInputChange}
+                            />
+                        ))}
+                    </table>
+
+                </div>
+            </div>);
         }
-    };
+    }
 
     render() {
         return (
