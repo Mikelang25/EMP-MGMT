@@ -12,5 +12,8 @@ export default {
   },
   createEmployee:function(employee){
     return axios.post("/api/employee",employee);
+  },
+  getIssues:function(employee){
+    return axios.get("/api/find/issues/" + employee);
   }
 };

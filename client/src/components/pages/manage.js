@@ -116,7 +116,7 @@ class Manage extends Component {
             }))
             .catch(err => console.log(err));
     }
-
+    
     updateEmployee = event => {
         event.preventDefault();
         API.updateEmployee({
