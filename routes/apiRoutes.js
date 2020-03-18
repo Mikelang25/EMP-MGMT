@@ -96,20 +96,15 @@ module.exports = function (app) {
         })
     })
 
-    // Delete a task by id
-    app.delete('/api/tasks/:id', function (req, res) {
-        db.Task.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+    //deletes a selected employee issue
+    app.delete('/api/issue/deleteall/:id', function (req, res) {
+        db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
             res.json(dbExample)
         })
     })
 
-    app.delete('/api/tasks/deleteall/:id', function (req, res) {
-        db.Task.destroy({ where: { user_id: req.params.id } }).then(function (dbExample) {
-            res.json(dbExample)
-        })
-    })
-
-    app.put('/api/tasks/:id', function (req, res) {
+    //updats the selected issue record
+    app.put('/api/issues/:id', function (req, res) {
         db.Task.update({
             task_comment: req.body.task_comment,
             task_name: req.body.task_name,

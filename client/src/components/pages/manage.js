@@ -16,7 +16,7 @@ class Manage extends Component {
     state = {
         employees: [],
         issues: [],
-        emp_issues:[],
+        emp_issues: [],
         employeeInfo: [],
         selectEmployee: "",
         myTab: "Info",
@@ -34,10 +34,10 @@ class Manage extends Component {
         new_pay: "",
         new_hire_date: "",
         new_photo: "noimage.png",
-        issue_short_descr:"",
-        issue_date:"",
-        issue_full_descr:"",
-        confirm_date:""
+        issue_short_descr: "",
+        issue_date: "",
+        issue_full_descr: "",
+        confirm_date: ""
     };
 
     componentDidMount() {
@@ -98,7 +98,7 @@ class Manage extends Component {
             selectEmployee: selectedEmp,
             employeeInfo: selectedInfo,
             photo_name: currPhoto,
-            emp_issues:issues
+            emp_issues: issues
         })
 
         console.log(this.state)
@@ -133,6 +133,20 @@ class Manage extends Component {
             .then(res => this.setState({
                 issues: res.data
             }))
+            .catch(err => console.log(err));
+    }
+
+    deleteIssue = (event) => {
+        console.log("this works")
+        const markDelete = event.target.value
+        event.preventDefault();
+        API.deleteIssue(markDelete)
+            .then(res => {
+                const update_emp_issues =  this.state.emp_issues.filter(issue => issue.id != markDelete)
+                this.setState({
+                    emp_issues:update_emp_issues
+                })
+            })
             .catch(err => console.log(err));
     }
 
@@ -226,29 +240,31 @@ class Manage extends Component {
             />;
         } else if (this.state.myTab === "Issues") {
             return (
-            <div className="wrapper">
-                <div className="col-md-12">
-                    <table className="table-issue">
-                        <tr>
-                            <th className="table-head">Issue</th>
-                            <th className="table-head">Date Created</th>
-                            <th className="table-head">Description</th>
-                            <th className="table-head">Confirm Date</th>
-                        </tr>
-                        {this.state.emp_issues.map(issue => (
-                            <Issue
-                                key={issue.id}
-                                issueShort={issue.issue_short_descr}
-                                issueDate={issue.issue_date}
-                                issueLong={issue.issue_full_descr}
-                                issueAccept={issue.confirm_date}
-                                onChange={this.handleInputChange}
-                            />
-                        ))}
-                    </table>
+                <div className="wrapper">
+                    <div className="col-md-12">
+                        <table className="table-issue">
+                            <tr>
+                                <th className="table-head">Issue</th>
+                                <th className="table-head">Date Created</th>
+                                <th className="table-head">Description</th>
+                                <th className="table-head">Confirm Date</th>
+                            </tr>
+                            {this.state.emp_issues.map(issue => (
+                                <Issue
+                                    key={issue.id}
+                                    id={issue.id}
+                                    issueShort={issue.issue_short_descr}
+                                    issueDate={issue.issue_date}
+                                    issueLong={issue.issue_full_descr}
+                                    issueAccept={issue.confirm_date}
+                                    onChange={this.handleInputChange}
+                                    delete={this.deleteIssue}
+                                />
+                            ))}
+                        </table>
 
-                </div>
-            </div>);
+                    </div>
+                </div>);
         }
     }
 

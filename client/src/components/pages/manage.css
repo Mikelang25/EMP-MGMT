@@ -25,8 +25,9 @@
 .image-container{
   height:80%;
   width: 90%;
-  border:2pt solid black;
+  border:1pt solid black;
   text-align: center;
+  background-color: gainsboro;
 }
 
 .emp-image{

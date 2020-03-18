@@ -15,5 +15,8 @@ export default {
   },
   getIssues:function(employee){
     return axios.get("/api/find/issues/");
+  },
+  deleteIssue:function(issue){
+    return axios.delete("/api/issue/deleteall/" + issue);
   }
 };
