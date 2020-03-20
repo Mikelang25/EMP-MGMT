@@ -31,6 +31,11 @@ module.exports = function (sequelize, DataTypes) {
         validate: {
           len: [1]
         }
+      },
+      issue_attach: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: "example.xlsx"
       }     
     })
   

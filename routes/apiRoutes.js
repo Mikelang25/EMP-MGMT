@@ -6,8 +6,8 @@ const nodemailer = require('nodemailer');
 module.exports = function (app) {
 
     //downloads the file from the server
-    app.get('/download/supporting/doc/:filename', function (req, res) {
-        const file = __dirname + '/../issue_documents/' + req.params.filename;
+    app.get('/download/:filename', function (req, res) {
+        const file = __dirname + '/../client/public/' + req.params.filename;
         res.download(file); // Set disposition and send it.
     });
 
@@ -49,32 +49,32 @@ module.exports = function (app) {
             res.json(conIssue)
             console.log(conIssue)
 
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'mal3jackie@gmail.com',
-                    pass: 'Carnelli7ct'
-                },
-                tls: {
-                    // do not fail on invalid certs
-                    rejectUnauthorized: false
-                }
-            });
+            // var transporter = nodemailer.createTransport({
+            //     service: 'gmail',
+            //     auth: {
+            //         user: 'mal3jackie@gmail.com',
+            //         pass: 'Carnelli7ct'
+            //     },
+            //     tls: {
+            //         // do not fail on invalid certs
+            //         rejectUnauthorized: false
+            //     }
+            // });
 
-            var mailOptions = {
-                from: 'mal3jackie@gmail.com',
-                to: 'mlang@rockitco.com',
-                subject: conIssue.issue_short_descr,
-                text: "Issue Description: " + conIssue.issue_full_descr
-            };
+            // var mailOptions = {
+            //     from: 'mal3jackie@gmail.com',
+            //     to: 'mlang@rockitco.com',
+            //     subject: conIssue.issue_short_descr,
+            //     text: "Issue Description: " + conIssue.issue_full_descr
+            // };
 
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            })
+            // transporter.sendMail(mailOptions, function (error, info) {
+            //     if (error) {
+            //         console.log(error);
+            //     } else {
+            //         console.log('Email sent: ' + info.response);
+            //     }
+            // })
         })
     })
 

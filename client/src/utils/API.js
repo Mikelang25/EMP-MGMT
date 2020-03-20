@@ -10,6 +10,9 @@ export default {
   uploadFile:function(file){
     return axios.post("/uploadfile",file);
   },
+  downloadFile:function(file){
+    return axios.get("/download/" + file,);
+  },
   createEmployee:function(employee){
     return axios.post("/api/employee",employee);
   },
@@ -18,5 +21,8 @@ export default {
   },
   deleteIssue:function(issue){
     return axios.delete("/api/issue/deleteall/" + issue);
+  },
+  createIssue:function(issue){
+    return axios.post("/api/issue",issue);
   }
 };

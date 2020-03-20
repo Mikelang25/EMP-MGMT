@@ -3,8 +3,8 @@ import API from "../../utils/API";
 import EmployeeDropItem from "../employeeList";
 import InfoTab from "../Info";
 import Performance from "../Performance";
-import ButtonCreate from "../buttoncreate";
 import InfoModal from "../employeemodal";
+import IssueModal from "../issuemodal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import "./manage.css";
@@ -37,7 +37,13 @@ class Manage extends Component {
         issue_short_descr: "",
         issue_date: "",
         issue_full_descr: "",
-        confirm_date: ""
+        confirm_date: "",
+        issue_attach: "",
+        new_issue_short_descr: "",
+        new_issue_date: "",
+        new_attach: "",
+        new_attach_name:"",
+        new_issue_full_descr: ""
     };
 
     componentDidMount() {
@@ -78,6 +84,28 @@ class Manage extends Component {
             .catch(err => console.log(err));
     }
 
+    submitIssue = event => {
+        event.preventDefault();
+        console.log(this.state.issue_attach)
+        const newIssue = {
+            employee_id:this.state.selectEmployee,
+            issue_short_descr:this.state.new_issue_short_descr,
+            issue_date:this.state.new_issue_date,
+            issue_full_descr: this.state.new_issue_full_descr 
+        }
+        API.createIssue(newIssue)
+            .then(res => {
+                this.hideModal()
+                const update_emp_issues = this.state.emp_issues
+                update_emp_issues.push(newIssue)
+                this.setState({
+                    emp_issues:update_emp_issues
+                })                
+            })
+            .catch(err => console.log(err));
+
+    }
+
     selectEmployee = (emp) => {
         const selectedEmp = parseInt(emp.target.value);
         const selectedInfo = this.state.employees.filter(employee => employee.id === selectedEmp)
@@ -111,6 +139,22 @@ class Manage extends Component {
         })
     }
 
+    setAttach = (event) => {
+        this.setState({
+            new_attach: event.target.files[0],
+            new_attach_name: event.target.files[0].name
+        })
+    }
+
+    uploadAttach = (event) => {
+        const data = new FormData()
+        data.append('file', event.target.files[0])
+        console.log(this.state.new_attach)
+        API.uploadFile(data)
+            .then(res => console.log(res.statusText))
+            .catch(err => console.log(err));
+    }
+
     uploadFile = () => {
         const data = new FormData()
         data.append('file', this.state.emp_photo)
@@ -118,6 +162,28 @@ class Manage extends Component {
         API.uploadFile(data)
             .then(res => console.log(res.statusText))
             .catch(err => console.log(err));
+    }
+
+    viewFile = (requestedfile) => {
+        const file = requestedfile;
+        const fr = new FileReader();
+        fr.readAsDataURL(file);
+
+        var blob = new Blob([file], { type: "application/pdf" });
+
+        var objectURL = window.URL.createObjectURL(blob);
+        console.log(objectURL);
+
+        if (navigator.appVersion.toString().indexOf('.NET') > 0) {
+            window.navigator.msSaveOrOpenBlob(blob, 'examples.xlsx');
+        } else {
+            var link = document.createElement('a');
+            link.href = objectURL;
+            link.download = "examples.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
     }
 
     loadEmployees = () => {
@@ -142,10 +208,12 @@ class Manage extends Component {
         event.preventDefault();
         API.deleteIssue(markDelete)
             .then(res => {
-                const update_emp_issues =  this.state.emp_issues.filter(issue => issue.id != markDelete)
+                const update_emp_issues = this.state.emp_issues.filter(issue => issue.id != markDelete)
                 this.setState({
-                    emp_issues:update_emp_issues
+                    emp_issues: update_emp_issues
                 })
+                console.log(markDelete)
+                console.log(this.state.emp_issues)
             })
             .catch(err => console.log(err));
     }
@@ -193,6 +261,20 @@ class Manage extends Component {
                 </div>
             );
         } else if (this.state.myTab === "Issues") {
+            return (
+                <div>
+                    <Button className="emp-create" variant="primary" onClick={this.showModal}>
+                        Create Issue
+                    </Button>
+                    <IssueModal
+                        show={this.state.modalShow}
+                        onHide={this.hideModal}
+                        onSubmit={this.submitIssue}
+                        onChange={this.handleInputChange}
+                        setphoto={this.setAttach}
+                    />
+                </div>
+            );
 
         } else if (this.state.myTab === "Performance") {
 
@@ -246,8 +328,9 @@ class Manage extends Component {
                             <tr>
                                 <th className="table-head">Issue</th>
                                 <th className="table-head">Date Created</th>
-                                <th className="table-head">Description</th>
                                 <th className="table-head">Confirm Date</th>
+                                <th className="table-head">Attachment</th>
+                                <th className="table-head">Description</th>
                             </tr>
                             {this.state.emp_issues.map(issue => (
                                 <Issue
@@ -257,6 +340,7 @@ class Manage extends Component {
                                     issueDate={issue.issue_date}
                                     issueLong={issue.issue_full_descr}
                                     issueAccept={issue.confirm_date}
+                                    issueDoc={issue.issue_attach}
                                     onChange={this.handleInputChange}
                                     delete={this.deleteIssue}
                                 />
