@@ -39,9 +39,16 @@
   font-weight: bold;
 }
 
-.fileSubmit{
-
+.container-table{
+  margin-top:25px;
+  margin-left:40px;
 }
+
+.no-issues{
+  margin-top:60px;
+  margin-left:70px;
+}
+
 
 .emp-create{
   margin-top:20px;

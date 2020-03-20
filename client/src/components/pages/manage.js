@@ -41,8 +41,8 @@ class Manage extends Component {
         issue_attach: "",
         new_issue_short_descr: "",
         new_issue_date: "",
-        new_attach: "",
-        new_attach_name:"",
+        new_attach: null,
+        new_attach_name: "",
         new_issue_full_descr: ""
     };
 
@@ -86,12 +86,13 @@ class Manage extends Component {
 
     submitIssue = event => {
         event.preventDefault();
-        console.log(this.state.issue_attach)
+
         const newIssue = {
-            employee_id:this.state.selectEmployee,
-            issue_short_descr:this.state.new_issue_short_descr,
-            issue_date:this.state.new_issue_date,
-            issue_full_descr: this.state.new_issue_full_descr 
+            employee_id: this.state.selectEmployee,
+            issue_short_descr: this.state.new_issue_short_descr,
+            issue_date: this.state.new_issue_date,
+            issue_full_descr: this.state.new_issue_full_descr,
+            issue_attach: this.state.new_attach_name
         }
         API.createIssue(newIssue)
             .then(res => {
@@ -99,8 +100,8 @@ class Manage extends Component {
                 const update_emp_issues = this.state.emp_issues
                 update_emp_issues.push(newIssue)
                 this.setState({
-                    emp_issues:update_emp_issues
-                })                
+                    emp_issues: update_emp_issues
+                })
             })
             .catch(err => console.log(err));
 
@@ -139,51 +140,27 @@ class Manage extends Component {
         })
     }
 
-    setAttach = (event) => {
-        this.setState({
-            new_attach: event.target.files[0],
-            new_attach_name: event.target.files[0].name
-        })
-    }
-
     uploadAttach = (event) => {
         const data = new FormData()
         data.append('file', event.target.files[0])
-        console.log(this.state.new_attach)
+        const fileName = event.target.files[0].name
         API.uploadFile(data)
             .then(res => console.log(res.statusText))
+            .then(res => {
+                this.setState({
+                    new_attach_name: fileName
+                })
+                console.log(this.state.new_attach_name)
+            })
             .catch(err => console.log(err));
     }
 
     uploadFile = () => {
         const data = new FormData()
         data.append('file', this.state.emp_photo)
-        console.log(this.state.emp_photo)
         API.uploadFile(data)
             .then(res => console.log(res.statusText))
             .catch(err => console.log(err));
-    }
-
-    viewFile = (requestedfile) => {
-        const file = requestedfile;
-        const fr = new FileReader();
-        fr.readAsDataURL(file);
-
-        var blob = new Blob([file], { type: "application/pdf" });
-
-        var objectURL = window.URL.createObjectURL(blob);
-        console.log(objectURL);
-
-        if (navigator.appVersion.toString().indexOf('.NET') > 0) {
-            window.navigator.msSaveOrOpenBlob(blob, 'examples.xlsx');
-        } else {
-            var link = document.createElement('a');
-            link.href = objectURL;
-            link.download = "examples.xlsx";
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        }
     }
 
     loadEmployees = () => {
@@ -249,7 +226,7 @@ class Manage extends Component {
         if (this.state.myTab === "Info") {
             return (
                 <div>
-                    <Button className="emp-create" variant="primary" onClick={this.showModal}>
+                    <Button key={this.state.selectEmployee} className="emp-create" variant="primary" onClick={this.showModal}>
                         Create Employee
                     </Button>
                     <InfoModal
@@ -263,7 +240,7 @@ class Manage extends Component {
         } else if (this.state.myTab === "Issues") {
             return (
                 <div>
-                    <Button className="emp-create" variant="primary" onClick={this.showModal}>
+                    <Button key={this.state.selectEmployee} className="emp-create" variant="primary" onClick={this.showModal}>
                         Create Issue
                     </Button>
                     <IssueModal
@@ -271,7 +248,7 @@ class Manage extends Component {
                         onHide={this.hideModal}
                         onSubmit={this.submitIssue}
                         onChange={this.handleInputChange}
-                        setphoto={this.setAttach}
+                        setattach={this.uploadAttach}
                     />
                 </div>
             );
@@ -323,31 +300,36 @@ class Manage extends Component {
         } else if (this.state.myTab === "Issues") {
             return (
                 <div className="wrapper">
-                    <div className="col-md-12">
-                        <table className="table-issue">
-                            <tr>
-                                <th className="table-head">Issue</th>
-                                <th className="table-head">Date Created</th>
-                                <th className="table-head">Confirm Date</th>
-                                <th className="table-head">Attachment</th>
-                                <th className="table-head">Description</th>
-                            </tr>
-                            {this.state.emp_issues.map(issue => (
-                                <Issue
-                                    key={issue.id}
-                                    id={issue.id}
-                                    issueShort={issue.issue_short_descr}
-                                    issueDate={issue.issue_date}
-                                    issueLong={issue.issue_full_descr}
-                                    issueAccept={issue.confirm_date}
-                                    issueDoc={issue.issue_attach}
-                                    onChange={this.handleInputChange}
-                                    delete={this.deleteIssue}
-                                />
-                            ))}
-                        </table>
-
-                    </div>
+                    {this.state.emp_issues.length ? (
+                        <div className="col-md-12 container-table">
+                            <thead>
+                                <tr>
+                                    <th className="table-head">Issue</th>
+                                    <th className="table-head">Date Created</th>
+                                    <th className="table-head">Confirm Date</th>
+                                    <th className="table-head">Attachment</th>
+                                    <th className="table-head">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody className="table-issue">
+                                {this.state.emp_issues.map(issue => (
+                                    <Issue
+                                        key={issue.id}
+                                        id={issue.id}
+                                        issueShort={issue.issue_short_descr}
+                                        issueDate={issue.issue_date}
+                                        issueLong={issue.issue_full_descr}
+                                        issueAccept={issue.confirm_date}
+                                        issueDoc={issue.issue_attach}
+                                        onChange={this.handleInputChange}
+                                        delete={this.deleteIssue}
+                                    />
+                                ))}
+                            </tbody>
+                        </div>
+                    ) : (
+                            <h2 className="text-center no-issues">No issues have been created for this employee</h2>
+                        )}
                 </div>);
         }
     }

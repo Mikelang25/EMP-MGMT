@@ -79,7 +79,7 @@ function IssueModal(props) {
             <label style={styles.labels}>Issue Date</label><br></br>
             <input style={styles.dateCreated} type="text" name="new_issue_date" onChange={props.onChange}></input><br></br>
             <label style={styles.labels}>Attachment</label><br></br>
-            <input style={styles.fileSubmit} type="file" name="new_attach" onChange={props.setAttach}></input><br></br>
+            <input style={styles.fileSubmit} type="file" name="new_attach" onChange={props.setattach}></input><br></br>
             <label style={styles.labels}>Description</label><br></br>
             <textarea style={styles.longDescr} name="new_issue_full_descr" onChange={props.onChange}></textarea><br></br>
             <button style={styles.button} onClick={props.onSubmit}>Create</button>
