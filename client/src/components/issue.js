@@ -7,22 +7,20 @@ const styles = {
         borderRadius:"5px"
     },
     dateCreated:{
+        textAlign:"center",
         width:"250px",
         textAlign:"center",
         marginRight:"15px",
         borderRadius:"5px"
     },
     longDescr:{
-        width:"450px",
-        marginTop:"30px",
-        marginRight:"15px",
-        borderRadius:"5px",
-        
+        width:"450px"
     },
     button:{
+        align:"center",
         width:"100px",
         height:"30px",
-        marginLeft:"15px"
+        margin:"0 auto"
     },
     file:{
         width:"350px",
@@ -35,12 +33,12 @@ const styles = {
 
 function Issue(props) {
     return (
-        <tr>
-            <td><input style={styles.shortDescr} type="text" name="issue_short_descr" onChange={props.onChange} defaultValue={props.issueShort}></input></td>
-            <td><input style={styles.dateCreated} type="text" name="issue_date" onChange={props.onChange} defaultValue={props.issueDate}></input></td>
-            <td><input style={styles.dateCreated} type="text" name="confirm_date" onChange={props.onChange} defaultValue={props.issueAccept}></input></td>
-            <td><span style={styles.file}><a href={props.issueDoc} download>{props.issueDoc}</a></span></td>
-            <td><textarea style={styles.longDescr} name="issue_full_descr" onChange={props.onChange} defaultValue={props.issueLong}></textarea></td>
+        <tr style={styles.tr}>
+            <td style={styles.shortDescr}>{props.issueShort}</td>
+            <td style={styles.dateCreated}>{props.issueDate}</td>
+            <td style={styles.dateCreated}>{props.issueAccept}</td>
+            <td style={styles.file}><a href={props.issueDoc} download>{props.issueDoc}</a></td>
+            <td><p style={styles.longDescr}>{props.issueLong}</p></td>
             <td><button style={styles.button} onClick={props.delete} value={props.id}>Delete</button></td>            
         </tr>
     );

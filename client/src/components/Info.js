@@ -1,47 +1,52 @@
-import React from "react";
+import React, { Component } from "react";
+import API from "../utils/API";
 
-const styles= {
-    labels:{
-        fontWeight:"bold",
-        marginTop:"10px",
-        marginLeft:"50px",
+const styles = {
+    labels: {
+        fontWeight: "bold",
+        marginTop: "10px",
+        marginLeft: "50px",
     },
-    inputs:{
-        marginLeft:"50px",
-        width:"30%",
-        borderRadius:"10px",
-        paddingLeft:"10px"
+    inputs: {
+        marginLeft: "50px",
+        width: "30%",
+        borderRadius: "10px",
+        paddingLeft: "10px"
     },
-    form:{
+    form: {
     },
-    button:{
-        marginTop:"30px",
-        marginLeft:"50px",
+    button: {
+        marginTop: "30px",
+        marginLeft: "50px",
     },
-    selectFile:{
-        marginLeft:"50px"
+    selectFile: {
+        marginLeft: "50px"
     }
 }
 
-function InfoTab(props) {
+class InfoTab extends Component {
 
-    return (
-        <div className="col-md-12">
-            <form onSubmit={props.updateEmployee}>
-                <label style={styles.labels}>First name</label><br></br>
-                <input style={styles.inputs} type="text" name="emp_fname" onChange={props.onChange} defaultValue={props.fname} ></input><br></br>
-                <label style={styles.labels}>Last name</label><br></br>
-                <input style={styles.inputs} type="text" name="emp_lname"  onChange={props.onChange} defaultValue={props.lname}></input><br></br>
-                <label style={styles.labels}>Email</label><br></br>
-                <input style={styles.inputs} type="text" name="emp_email" onChange={props.onChange} defaultValue={props.email}></input><br></br>
-                <label style={styles.labels}>Salary</label><br></br>
-                <input style={styles.inputs} type="text" name="emp_pay" onChange={props.onChange} defaultValue={props.pay}></input><br></br>
-                <label style={styles.labels}>Hire Date</label><br></br>
-                <input style={styles.inputs} type="text" name="emp_hire_date" onChange={props.onChange} defaultValue={props.hire}></input><br></br>
-                <input style={styles.button} type="submit" value="Update" />    
-            </form>
-        </div>
-    );
-  }
-  
-  export default InfoTab;
+    render() {
+        return (
+            <div className="col-md-12">
+                <form onSubmit={this.props.updateEmployee}>
+                    <label style={styles.labels}>First name</label><br></br>
+                    <input style={styles.inputs} type="text" name="emp_fname" onChange={this.props.onChange} defaultValue={this.props.fname} ></input><br></br>
+                    <label style={styles.labels}>Last name</label><br></br>
+                    <input style={styles.inputs} type="text" name="emp_lname" onChange={this.props.onChange} defaultValue={this.props.lname}></input><br></br>
+                    <label style={styles.labels}>Email</label><br></br>
+                    <input style={styles.inputs} type="text" name="emp_email" onChange={this.props.onChange} defaultValue={this.props.email}></input><br></br>
+                    <label style={styles.labels}>Salary</label><br></br>
+                    <input style={styles.inputs} type="text" name="emp_pay" onChange={this.props.onChange} defaultValue={this.props.pay}></input><br></br>
+                    <label style={styles.labels}>Hire Date</label><br></br>
+                    <input style={styles.inputs} type="text" name="emp_hire_date" onChange={this.props.onChange} defaultValue={this.props.hire}></input><br></br>
+                    <label style={styles.labels} >Photo</label><br></br>
+                    <input style={styles.inputs} type="file" name="emp_photo" onChange={this.props.setphoto}></input><br></br>
+                    <input style={styles.button} type="submit" value="Update" />
+                </form>
+            </div>
+        );
+    }
+}
+
+export default InfoTab;

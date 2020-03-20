@@ -7,6 +7,7 @@ import InfoModal from "../employeemodal";
 import IssueModal from "../issuemodal";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
 import "./manage.css";
 import Issue from "../issue"
 import "../issues.css";
@@ -57,7 +58,6 @@ class Manage extends Component {
             [name]: value
         });
     };
-
 
     selectedTab = empPage => {
         const desiredTab = empPage.target.value
@@ -155,11 +155,16 @@ class Manage extends Component {
             .catch(err => console.log(err));
     }
 
-    uploadFile = () => {
+    uploadFile = (event) => {
         const data = new FormData()
-        data.append('file', this.state.emp_photo)
+        data.append('file', event.target.files[0])
         API.uploadFile(data)
             .then(res => console.log(res.statusText))
+            .then(
+                this.setState({
+                    photo_name: event.target.files[0].name
+                })
+            )
             .catch(err => console.log(err));
     }
 
@@ -280,13 +285,9 @@ class Manage extends Component {
                                     hire={info.emp_hire_date}
                                     onChange={this.handleInputChange}
                                     updateEmployee={this.updateEmployee}
+                                    setphoto={this.uploadFile}
                                 />
                                 <div className="row">
-                                    <div className="col-md-4 photo-container">
-                                        <label className="lblSubmit" >Photo</label><br></br>
-                                        <input className="fileSubmit" type="file" name="emp_photo" onChange={this.setPhoto}></input>
-                                        <input className="btn-submit" type="submit" value="Upload" onClick={this.uploadFile} />
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -302,30 +303,33 @@ class Manage extends Component {
                 <div className="wrapper">
                     {this.state.emp_issues.length ? (
                         <div className="col-md-12 container-table">
-                            <thead>
-                                <tr>
-                                    <th className="table-head">Issue</th>
-                                    <th className="table-head">Date Created</th>
-                                    <th className="table-head">Confirm Date</th>
-                                    <th className="table-head">Attachment</th>
-                                    <th className="table-head">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody className="table-issue">
-                                {this.state.emp_issues.map(issue => (
-                                    <Issue
-                                        key={issue.id}
-                                        id={issue.id}
-                                        issueShort={issue.issue_short_descr}
-                                        issueDate={issue.issue_date}
-                                        issueLong={issue.issue_full_descr}
-                                        issueAccept={issue.confirm_date}
-                                        issueDoc={issue.issue_attach}
-                                        onChange={this.handleInputChange}
-                                        delete={this.deleteIssue}
-                                    />
-                                ))}
-                            </tbody>
+                            <Table striped bordered hover size="sm">
+                                <thead>
+                                    <tr>
+                                        <th className="table-head">Issue</th>
+                                        <th className="table-head">Date Created</th>
+                                        <th className="table-head">Confirm Date</th>
+                                        <th className="table-head">Attachment</th>
+                                        <th className="table-head">Description</th>
+                                        <th className="table-head">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="table-issue">
+                                    {this.state.emp_issues.map(issue => (
+                                        <Issue
+                                            key={issue.id}
+                                            id={issue.id}
+                                            issueShort={issue.issue_short_descr}
+                                            issueDate={issue.issue_date}
+                                            issueLong={issue.issue_full_descr}
+                                            issueAccept={issue.confirm_date}
+                                            issueDoc={issue.issue_attach}
+                                            onChange={this.handleInputChange}
+                                            delete={this.deleteIssue}
+                                        />
+                                    ))}
+                                </tbody>
+                            </Table>
                         </div>
                     ) : (
                             <h2 className="text-center no-issues">No issues have been created for this employee</h2>
