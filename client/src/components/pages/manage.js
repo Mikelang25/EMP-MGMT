@@ -185,7 +185,6 @@ class Manage extends Component {
     }
 
     deleteIssue = (event) => {
-        console.log("this works")
         const markDelete = event.target.value
         event.preventDefault();
         API.deleteIssue(markDelete)
@@ -211,7 +210,14 @@ class Manage extends Component {
             emp_hire_date: this.state.emp_hire_date,
             emp_photo: this.state.photo_name
         })
-            .then(res => this.loadEmployees())
+            .then(res => {
+                const updatedInfo = this.state.employees.filter(employee => employee.id === this.state.selectEmployee)
+                updatedInfo[0].emp_photo = this.state.photo_name
+                this.setState({
+                    employeeInfo: updatedInfo
+                })
+                console.log(updatedInfo)
+            })
             .catch(err => console.log(err));
     }
 

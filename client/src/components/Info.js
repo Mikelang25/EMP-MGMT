@@ -4,13 +4,12 @@ import API from "../utils/API";
 const styles = {
     labels: {
         fontWeight: "bold",
-        marginTop: "10px",
+        marginTop: "15px",
         marginLeft: "50px",
     },
     inputs: {
         marginLeft: "50px",
         width: "30%",
-        borderRadius: "10px",
         paddingLeft: "10px"
     },
     form: {
