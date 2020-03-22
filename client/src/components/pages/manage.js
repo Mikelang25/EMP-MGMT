@@ -221,6 +221,17 @@ class Manage extends Component {
             .catch(err => console.log(err));
     }
 
+    logout = (event) => { 
+        console.log("this is working")
+        event.preventDefault();
+        API.logoutUser()
+        .then(res => {
+            window.location.replace("/")
+        })
+        .catch(err => console.log(err));
+
+    }
+
     showModal = () => {
         this.setState({
             modalShow: true
@@ -281,7 +292,7 @@ class Manage extends Component {
                                     <img alt="photo" className="emp-image" src={info.emp_photo} />
                                 </div>
                             </div>
-                            <div className="col-md-7">
+                            <div className="col-md-4 employee-container">
                                 <InfoTab
                                     key={info.id}
                                     fname={info.emp_fname}
@@ -360,11 +371,16 @@ class Manage extends Component {
                             ))}
                         </select>
                     </div>
-                    <div className="col-md-7 text-center main-container">
+                    <div className="col-md-5 text-center main-container">
 
                     </div>
-                    <div className="col-md-2 text-right">
+                    <div className="col-md-4 text-right">
                         {this.getModal()}
+                    </div>
+                    <div className="col-md-1 text-cemter">
+                        <Button className="btn-logout" onClick={this.logout}>
+                            Logout
+                        </Button>
                     </div>
                 </div>
                 <div className="row">

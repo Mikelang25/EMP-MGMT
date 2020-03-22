@@ -1,4 +1,6 @@
-
+body{
+    background-image: url("/dark_fish_skin.png");
+}
 
 .login-form{
     padding-left:60px;
@@ -6,6 +8,7 @@
     margin-top:100px;
     border:1pt solid gray;
     border-radius: 5px;
+    background-color: whitesmoke;
 }
 
 .lbl-user{
@@ -23,7 +26,8 @@
     margin-bottom:20px;
     border:none;
     border-bottom: 1pt solid black;
-    width: 90%;
+    width: 95%;
+    text-indent: 5px;
 }
 
 .lbl-pw{
@@ -32,23 +36,45 @@
 }
 
 .inp-pw{
-    margin-bottom:40px;
+    margin-bottom:50px;
     border:none;
     border-bottom: 1pt solid black;
-    width: 90%;
+    width: 95%;
+    text-indent: 5px;
 }
 
 .btn-login{
-    width:100%;
-    margin-bottom:150px;
+    width:95%;
+    margin-bottom:130px;
+    border:1pt solid black;
+    background-color: rgb(89, 89, 189);
+    color:whitesmoke;
+    border-radius: 5px;
+}
+
+.btn-login:hover{
+    background-color: white;
+    color:black;
+    font-weight: bold;
 }
 
 .btn-sign{
     margin-top:50px;
     width:50%;
+    border:1pt solid black;
+    background-color: rgb(89, 89, 189);
+    color:whitesmoke;
+    border-radius: 5px;
+}
+
+.btn-sign:hover{
+    background-color: white;
+    color:black;
+    font-weight: bold;
 }
 
 .lbl-cont{
     font-size: 10pt;
     margin-bottom:20px;
 }
+

@@ -2,32 +2,36 @@ import React from "react";
 
 const styles = {
     shortDescr:{
-        width:"300px",
-        marginRight:"15px",
-        borderRadius:"5px"
+        width:"300px"
     },
     dateCreated:{
         textAlign:"center",
         width:"250px",
         textAlign:"center",
         marginRight:"15px",
-        borderRadius:"5px"
+        verticalAlign:"middle"
     },
     longDescr:{
         width:"450px"
     },
     button:{
-        align:"center",
-        width:"100px",
-        height:"30px",
-        margin:"0 auto"
+        backgroundColor: "rgb(89, 89, 189)",
+        color:"whitesmoke",
+        width:"150px",
+        textShadow: "none",
+        border:"1pt solid black",
+        marginTop:"6px",
+        marginLeft:"8px"
     },
     file:{
         width:"350px",
         textAlign:"center",
         marginLeft:"20px",
-        marginRight:"30px",
-        borderRadius:"5px"
+        marginRight:"30px"
+    },
+    tr:{
+        backgroundColor:"white",
+        padding:"10px"
     }
 }
 

@@ -33,5 +33,8 @@ export default {
   },
   createUser: function (user) {
     return axios.post("/api/signup",user);
+  },
+  logoutUser: function (user) {
+    return axios.get("/logout",user);
   }
 };

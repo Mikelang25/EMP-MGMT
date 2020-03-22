@@ -9,7 +9,7 @@ const styles = {
     },
     inputs: {
         marginLeft: "50px",
-        width: "30%",
+        width: "70%",
         paddingLeft: "10px"
     },
     form: {
@@ -17,9 +17,21 @@ const styles = {
     button: {
         marginTop: "30px",
         marginLeft: "50px",
+        backgroundColor: "rgb(89, 89, 189)",
+        color:"whitesmoke",
+        width:"100px",
+        marginRight:"15px",
+        textShadow: "none",
+        border:"1pt solid black",
+        marginBottom:"20px",
+        borderRadius:"5px"
     },
     selectFile: {
-        marginLeft: "50px"
+        marginTop: "10px",
+        marginLeft: "50px",
+        border:"1pt solid black",
+        marginBottom:"20px",
+        borderRadius:"5px"
     }
 }
 
@@ -40,7 +52,7 @@ class InfoTab extends Component {
                     <label style={styles.labels}>Hire Date</label><br></br>
                     <input style={styles.inputs} type="text" name="emp_hire_date" onChange={this.props.onChange} defaultValue={this.props.hire}></input><br></br>
                     <label style={styles.labels} >Photo</label><br></br>
-                    <input style={styles.inputs} type="file" name="emp_photo" onChange={this.props.setphoto}></input><br></br>
+                    <input style={styles.selectFile} type="file" name="emp_photo" onChange={this.props.setphoto}></input><br></br>
                     <input style={styles.button} type="submit" value="Update" />
                 </form>
             </div>
