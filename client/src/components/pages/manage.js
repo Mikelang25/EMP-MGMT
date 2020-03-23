@@ -9,8 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import "./manage.css";
-import Issue from "../issue"
-import "../issues.css";
+import Issue from "../issue";
 
 class Manage extends Component {
 
@@ -221,14 +220,14 @@ class Manage extends Component {
             .catch(err => console.log(err));
     }
 
-    logout = (event) => { 
+    logout = (event) => {
         console.log("this is working")
         event.preventDefault();
         API.logoutUser()
-        .then(res => {
-            window.location.replace("/")
-        })
-        .catch(err => console.log(err));
+            .then(res => {
+                window.location.replace("/")
+            })
+            .catch(err => console.log(err));
 
     }
 
@@ -320,9 +319,9 @@ class Manage extends Component {
                 <div className="wrapper">
                     {this.state.emp_issues.length ? (
                         <div className="col-md-12 container-table">
-                            <Table striped bordered hover size="sm">
+                            <Table className="issue-table" striped bordered hover size="sm">
                                 <thead>
-                                    <tr>
+                                    <tr className="table-headers">
                                         <th className="table-head">Issue</th>
                                         <th className="table-head">Date Created</th>
                                         <th className="table-head">Confirm Date</th>
@@ -349,7 +348,11 @@ class Manage extends Component {
                             </Table>
                         </div>
                     ) : (
-                            <h2 className="text-center no-issues">No issues have been created for this employee</h2>
+                            <div className="row">
+                                <div className="col-md-11 box-no-issues">
+                                    <h2 className="text-center no-issues">No issues have been created for this employee<img className="thumbs" src="https://img.icons8.com/emoji/48/000000/thumbs-up.png"/></h2>
+                                </div>
+                            </div>
                         )}
                 </div>);
         }

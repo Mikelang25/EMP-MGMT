@@ -21,7 +21,8 @@ const styles = {
         textShadow: "none",
         border:"1pt solid black",
         marginTop:"6px",
-        marginLeft:"8px"
+        marginLeft:"8px",
+        borderRadius:"5px"
     },
     file:{
         width:"350px",

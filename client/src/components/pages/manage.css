@@ -51,8 +51,37 @@
 }
 
 .no-issues{
-  margin-top:60px;
-  margin-left:70px;
+  width: 100%;  
+  margin-top:45px;
+  margin-right:15px;
+}
+
+thead{
+  border-top-left-radius: 15px;
+}
+
+.table-issue{
+  margin-left:30px;
+  margin-top:30px;
+}
+
+.table-headers{
+  background-color: gainsboro;
+  text-align: center;
+}
+
+.thumbs{
+  margin-left:10px;
+}
+
+
+.box-no-issues{
+  border:1pt solid black;
+  background-color: white;
+  margin-top:25px;
+  margin-left:125px;
+  height:150px;
+  border-radius: 5px;;
 }
 
 
