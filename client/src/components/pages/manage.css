@@ -17,7 +17,7 @@
   padding-bottom:25px;
   margin-top:20px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 
 .info-container{
@@ -32,12 +32,8 @@
   width: 90%;
   border:1pt solid black;
   text-align: center;
-  background-color: white;
-  border-radius: 5px;
-}
-
-.emp-image{
-  border: 1pt solid black;
+  background-image:url("/grid.png");
+  border-radius: 15px;
 }
 
 .lblSubmit{
@@ -56,17 +52,12 @@
   margin-right:15px;
 }
 
-thead{
-  border-top-left-radius: 15px;
-}
-
 .table-issue{
   margin-left:30px;
   margin-top:30px;
 }
 
 .table-headers{
-  background-color: gainsboro;
   text-align: center;
 }
 

@@ -10,9 +10,12 @@ const styles = {
     inputs: {
         marginLeft: "50px",
         width: "70%",
-        paddingLeft: "10px"
+        paddingLeft: "10px",
+        borderRadius:"15px"
     },
     form: {
+        backgroundImage:"url('/grid.png')",
+        borderRadius:"15px"
     },
     button: {
         marginTop: "30px",
@@ -27,6 +30,7 @@ const styles = {
         borderRadius:"5px"
     },
     selectFile: {
+        padding:"10px",
         marginTop: "10px",
         marginLeft: "50px",
         border:"1pt solid black",
@@ -40,7 +44,7 @@ class InfoTab extends Component {
     render() {
         return (
             <div className="col-md-12">
-                <form onSubmit={this.props.updateEmployee}>
+                <form style={styles.form} onSubmit={this.props.updateEmployee}>
                     <label style={styles.labels}>First name</label><br></br>
                     <input style={styles.inputs} type="text" name="emp_fname" onChange={this.props.onChange} defaultValue={this.props.fname} ></input><br></br>
                     <label style={styles.labels}>Last name</label><br></br>

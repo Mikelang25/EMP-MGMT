@@ -319,7 +319,7 @@ class Manage extends Component {
                 <div className="wrapper">
                     {this.state.emp_issues.length ? (
                         <div className="col-md-12 container-table">
-                            <Table className="issue-table" striped bordered hover size="sm">
+                            <Table className="issue-table" variant="dark" striped bordered hover size="sm">
                                 <thead>
                                     <tr className="table-headers">
                                         <th className="table-head">Issue</th>

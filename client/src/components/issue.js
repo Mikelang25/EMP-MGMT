@@ -31,7 +31,6 @@ const styles = {
         marginRight:"30px"
     },
     tr:{
-        backgroundColor:"white",
         padding:"10px"
     }
 }
