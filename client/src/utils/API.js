@@ -19,6 +19,9 @@ export default {
   getIssues: function (employee) {
     return axios.get("/api/find/issues/");
   },
+  getIssuesSearch: function (){
+    return axios.get("/api/find/issuessearch");
+  },
   deleteIssue: function (issue) {
     return axios.delete("/api/issue/deleteall/" + issue);
   },
@@ -36,5 +39,11 @@ export default {
   },
   logoutUser: function (user) {
     return axios.get("/logout",user);
+  },
+  findEmployee:function(employee){
+    return axios.get("/api/find/employee/" + employee)
+  },
+  updateIssue: function (issue) {
+    return axios.put("/api/accept/issues/" + issue);
   }
 };

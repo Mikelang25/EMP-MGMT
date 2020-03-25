@@ -64,9 +64,30 @@ module.exports = function (app) {
         })
     })
 
+    app.get('/api/find/employee/:email', function (req, res) {
+        db.Employee.findOne({
+            where:{
+                emp_email:req.params.email
+            }
+        }).then(function (reqEmployee) {
+            res.json(reqEmployee)
+        })
+    })
+
     // Find all issues for a given user
     app.get('/api/find/issues', function (req, res) {
         db.Issue.findAll({}).then(function (respTasks) {
+            console.log(respTasks)
+            res.json(respTasks)
+        })
+    })
+
+    app.get('/api/find/issuessearch', function (req, res) {
+        db.Issue.findAll({
+            where:{
+                confirm_date: null
+            }
+        }).then(function (respTasks) {
             console.log(respTasks)
             res.json(respTasks)
         })
@@ -104,7 +125,7 @@ module.exports = function (app) {
                     subject: conIssue.issue_short_descr,
                     text: "Issue Description: " + conIssue.issue_full_descr,
                     html:"<p>This is to let you know that an issue has been raised regarding your conduct. <br> Please click the link below to view and acknowledge the issue</p><br>" + 
-                         "<a href='http://localhost:3000/manage'>Search Issues</a>"
+                         "<a href='http://localhost:3000/search'>Search Issues</a>"
                 };
 
             transporter.sendMail(mailOptions, function (error, info) {
@@ -158,15 +179,18 @@ app.put('/api/issues/:id', function (req, res) {
 
 //updats the selected issue record
 app.put('/api/accept/issues/:id', function (req, res) {
-    const today = new Date();
+    var today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
 
-    today = mm + '/' + dd + '/' + yyyy;
+    today = yyyy + '-' + mm + '-' + dd;
+    const stringDate = today.toString()
+
+    console.log(stringDate)
 
     db.Issue.update({
-        confirm_date: today
+        confirm_date: stringDate
     }, {
         where: { id: req.params.id }
     }).then(function (dbExample) {
