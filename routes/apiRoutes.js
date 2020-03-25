@@ -77,87 +77,116 @@ module.exports = function (app) {
         db.Issue.create(req.body).then(function (conIssue) {
             res.json(conIssue)
             console.log(conIssue)
+            const employeeID = conIssue.employee_id
+            console.log(employeeID)
 
-            // var transporter = nodemailer.createTransport({
-            //     service: 'gmail',
-            //     auth: {
-            //         user: 'mal3jackie@gmail.com',
-            //         pass: 'Carnelli7ct'
-            //     },
-            //     tls: {
-            //         // do not fail on invalid certs
-            //         rejectUnauthorized: false
-            //     }
-            // });
+            db.Employee.findOne({
 
-            // var mailOptions = {
-            //     from: 'mal3jackie@gmail.com',
-            //     to: 'mlang@rockitco.com',
-            //     subject: conIssue.issue_short_descr,
-            //     text: "Issue Description: " + conIssue.issue_full_descr
-            // };
+                where: {
+                    id: employeeID
+                }
+            }).then(function (empInfo) {
+                var transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: 'mal3jackie@gmail.com',
+                        pass: 'Carnelli7ct'
+                    },
+                    tls: {
+                        // do not fail on invalid certs
+                        rejectUnauthorized: false
+                    }
+                });
 
-            // transporter.sendMail(mailOptions, function (error, info) {
-            //     if (error) {
-            //         console.log(error);
-            //     } else {
-            //         console.log('Email sent: ' + info.response);
-            //     }
-            // })
-        })
+                var mailOptions = {
+                    from: 'mal3jackie@gmail.com',
+                    to: empInfo.emp_email,
+                    subject: conIssue.issue_short_descr,
+                    text: "Issue Description: " + conIssue.issue_full_descr,
+                    html:"<p>This is to let you know that an issue has been raised regarding your conduct. <br> Please click the link below to view and acknowledge the issue</p><br>" + 
+                         "<a href='http://localhost:3000/manage'>Search Issues</a>"
+                };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            })
+        });
     })
+})
 
 
-    //post a new user
-    app.post('/api/user', function (req, res) {
-        db.User.create(req.body).then(function (userExample) {
-            res.json(userExample)
-            console.log(userExample)
+//post a new user
+app.post('/api/user', function (req, res) {
+    db.User.create(req.body).then(function (userExample) {
+        res.json(userExample)
+        console.log(userExample)
 
-        })
     })
+})
 
-    //posts a new employee
-    app.post('/api/employee', function (req, res) {
-        db.Employee.create(req.body).then(function (conEmployee) {
-            res.json(conEmployee)
-            console.log(conEmployee)
-        })
+//posts a new employee
+app.post('/api/employee', function (req, res) {
+    db.Employee.create(req.body).then(function (conEmployee) {
+        res.json(conEmployee)
+        console.log(conEmployee)
     })
+})
 
-    //deletes a selected employee issue
-    app.delete('/api/issue/deleteall/:id', function (req, res) {
-        db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-            res.json(dbExample)
-        })
+//deletes a selected employee issue
+app.delete('/api/issue/deleteall/:id', function (req, res) {
+    db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+        res.json(dbExample)
     })
+})
 
-    //updats the selected issue record
-    app.put('/api/issues/:id', function (req, res) {
-        db.Task.update({
-            task_comment: req.body.task_comment,
-            task_name: req.body.task_name,
-            task_day: req.body.task_day
-        }, {
-            where: { id: req.params.id }
-        }).then(function (dbExample) {
-            res.json(dbExample)
-        })
+//updats the selected issue record
+app.put('/api/issues/:id', function (req, res) {
+    db.Task.update({
+        task_comment: req.body.task_comment,
+        task_name: req.body.task_name,
+        task_day: req.body.task_day
+    }, {
+        where: { id: req.params.id }
+    }).then(function (dbExample) {
+        res.json(dbExample)
     })
+})
 
-    //updates the selected employee record
-    app.put('/api/employee', function (req, res) {
-        db.Employee.update({
-            emp_fname: req.body.emp_fname,
-            emp_lname: req.body.emp_lname,
-            emp_email: req.body.emp_email,
-            emp_pay: req.body.emp_pay,
-            emp_hire_date: req.body.emp_hire_date,
-            emp_photo: req.body.emp_photo
-        }, {
-            where: { id: req.body.id }
-        }).then(function (dbExample) {
-            res.json(dbExample)
-        })
+//updats the selected issue record
+app.put('/api/accept/issues/:id', function (req, res) {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+
+    db.Issue.update({
+        confirm_date: today
+    }, {
+        where: { id: req.params.id }
+    }).then(function (dbExample) {
+        res.json(dbExample)
     })
+})
+
+//updates the selected employee record
+app.put('/api/employee', function (req, res) {
+    db.Employee.update({
+        emp_fname: req.body.emp_fname,
+        emp_lname: req.body.emp_lname,
+        emp_email: req.body.emp_email,
+        emp_pay: req.body.emp_pay,
+        emp_hire_date: req.body.emp_hire_date,
+        emp_photo: req.body.emp_photo
+    }, {
+        where: { id: req.body.id }
+    }).then(function (dbExample) {
+        res.json(dbExample)
+    })
+})
 }
