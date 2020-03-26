@@ -6,6 +6,7 @@ const styles = {
     fontWeight: "bold",
     marginTop: "10px",
     marginLeft: "50px",
+    color:"white"
   },
   inputs: {
     marginLeft: "50px",
@@ -18,7 +19,7 @@ const styles = {
   button: {
     marginTop: "30px",
     marginLeft: "400px",
-    backgroundColor: "black",
+    backgroundColor: "rgb(89, 89, 189)",
     color: "white",
     width: "100px",
     height: "40px",
@@ -27,7 +28,7 @@ const styles = {
   button2: {
     marginTop: "30px",
     marginLeft: "40px",
-    backgroundColor: "black",
+    backgroundColor: "rgb(89, 89, 189)",
     color: "white",
     width: "100px",
     height: "40px",
@@ -46,7 +47,8 @@ const styles = {
     marginLeft: "50px",
     width: "40%",
     borderRadius: "10px",
-    paddingLeft: "10px"
+    paddingLeft: "10px",
+    color:"white"
   },
   longDescr:{
     marginLeft: "50px",
@@ -54,6 +56,22 @@ const styles = {
     height:"100px",
     borderRadius: "10px",
     paddingLeft: "10px"
+  },
+  modal:{
+    backgroundImage:"url('./dark_fish_skin.png')"
+  },
+  modalHead:{
+    backgroundColor:"grey",
+    color:"white"
+  },
+  modalFooter:{
+    backgroundColor:"black"
+  },
+  modalTitle:{
+    border:"1 solid black"
+  },
+  icon:{
+    marginRight:"10px"
   }
 }
 
@@ -66,12 +84,12 @@ function IssueModal(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header style={styles.modalHead} closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create Employee Issue
+          <h2><img style={styles.icon} src="https://img.icons8.com/color/48/000000/warning-shield.png"/>Create Issue</h2>
             </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={styles.modal}>
         <div className="col-md-12">
           <form>
             <label style={styles.labels}>Title</label><br></br>
@@ -87,7 +105,7 @@ function IssueModal(props) {
           </form>
         </div>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer style={styles.modalFooter}>
 
       </Modal.Footer>
     </Modal>

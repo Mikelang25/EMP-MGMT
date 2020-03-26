@@ -16,7 +16,6 @@
   padding-top:25px;
   padding-bottom:25px;
   margin-top:20px;
-  background-color: white;
   border-radius: 15px;
 }
 
@@ -30,9 +29,7 @@
   padding:25px;
   height:70%;
   width: 90%;
-  border:1pt solid black;
   text-align: center;
-  background-image:url("/grid.png");
   border-radius: 15px;
 }
 
