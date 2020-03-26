@@ -93,11 +93,20 @@ class Manage extends Component {
             issue_full_descr: this.state.new_issue_full_descr,
             issue_attach: this.state.new_attach_name
         }
+        
         API.createIssue(newIssue)
             .then(res => {
+                const addIssue = {
+                    id:res.data.id,
+                    issue_short_descr: res.data.issue_short_descr,
+                    issue_date: res.data.issue_date,
+                    issue_full_descr: res.data.issue_full_descr,
+                    issue_attach: res.data.issue_attach
+                }
+                console.log(res.data)
                 this.hideModal()
                 const update_emp_issues = this.state.emp_issues
-                update_emp_issues.push(newIssue)
+                update_emp_issues.push(addIssue)
                 this.setState({
                     emp_issues: update_emp_issues
                 })

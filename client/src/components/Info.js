@@ -6,6 +6,7 @@ const styles = {
         fontWeight: "bold",
         marginTop: "15px",
         marginLeft: "50px",
+        color:"white"
     },
     inputs: {
         marginLeft: "50px",
@@ -14,7 +15,6 @@ const styles = {
         borderRadius:"15px"
     },
     form: {
-        backgroundImage:"url('/grid.png')",
         borderRadius:"15px"
     },
     button: {
@@ -35,7 +35,8 @@ const styles = {
         marginLeft: "50px",
         border:"1pt solid black",
         marginBottom:"20px",
-        borderRadius:"5px"
+        borderRadius:"5px",
+        color:"white"
     }
 }
 
