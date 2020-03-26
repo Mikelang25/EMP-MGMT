@@ -48,7 +48,7 @@ class Manage extends Component {
 
     componentDidMount() {
         this.loadEmployees()
-        this.findIssues()
+        this.findIssues() 
     }
 
     handleInputChange = event => {
@@ -93,11 +93,11 @@ class Manage extends Component {
             issue_full_descr: this.state.new_issue_full_descr,
             issue_attach: this.state.new_attach_name
         }
-        
+
         API.createIssue(newIssue)
             .then(res => {
                 const addIssue = {
-                    id:res.data.id,
+                    id: res.data.id,
                     issue_short_descr: res.data.issue_short_descr,
                     issue_date: res.data.issue_date,
                     issue_full_descr: res.data.issue_full_descr,
@@ -113,6 +113,32 @@ class Manage extends Component {
             })
             .catch(err => console.log(err));
 
+    }
+
+    loadEmployee = () => {
+        const selectedEmp = parseInt(this.state.employees[0].id);
+        const selectedInfo = this.state.employees.filter(employee => employee.id === selectedEmp)
+        const issues = this.state.issues.filter(issue => issue.employee_id === selectedEmp)
+        const currfname = selectedInfo[0].emp_fname
+        const currlname = selectedInfo[0].emp_lname
+        const curremail = selectedInfo[0].emp_email
+        const currpay = selectedInfo[0].emp_pay
+        const currhire = selectedInfo[0].emp_hire_date
+        const currPhoto = selectedInfo[0].emp_photo
+
+        this.setState({
+            emp_fname: currfname,
+            emp_lname: currlname,
+            emp_email: curremail,
+            emp_pay: currpay,
+            emp_hire_date: currhire,
+            selectEmployee: selectedEmp,
+            employeeInfo: selectedInfo,
+            photo_name: currPhoto,
+            emp_issues: issues
+        })
+
+        console.log(this.state)
     }
 
     selectEmployee = (emp) => {
@@ -181,6 +207,7 @@ class Manage extends Component {
             .then(res => this.setState({
                 employees: res.data
             }))
+            .then(res => this.loadEmployee())
             .catch(err => console.log(err));
     }
 
@@ -359,7 +386,7 @@ class Manage extends Component {
                     ) : (
                             <div className="row">
                                 <div className="col-md-11 box-no-issues">
-                                    <h2 className="text-center no-issues">No issues have been created for this employee<img className="thumbs" src="https://img.icons8.com/emoji/48/000000/thumbs-up.png"/></h2>
+                                    <h2 className="text-center no-issues">No issues have been created for this employee<img className="thumbs" src="https://img.icons8.com/emoji/48/000000/thumbs-up.png" /></h2>
                                 </div>
                             </div>
                         )}
