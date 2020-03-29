@@ -1,9 +1,13 @@
 const db = require('../models')
 const nodemailer = require('nodemailer');
 const passport = require("../config/passport");
-
+const aws2 = require("../aws")
 
 module.exports = function (app) {
+
+    app.post("/api/aws/test", function (req, res) {
+        aws2.create("empt-mgt-3")
+    });
 
     // Using the passport.authenticate middleware with our local strategy.
     // If the user has valid login credentials, send them to the members page.
@@ -41,13 +45,19 @@ module.exports = function (app) {
     });
 
     //uploads an attachment to the documents folder
-    app.post('/uploadfile', function (req, res) {
+    app.post('/uploadfile/:employee', function (req, res) {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(400).send('No files were uploaded.');
         }
+
         // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
         let sampleFile = req.files.file;
+        let File = req.files;
+        let selectEmployee =req.params.employee
+        console.log(selectEmployee)
         console.log(sampleFile)
+
+        aws2.upload(sampleFile,selectEmployee)
         // Use the mv() method to place the file somewhere on your server
         sampleFile.mv(__dirname + '/../client/public/' + sampleFile.name, function (err) {
             if (err)
@@ -59,15 +69,14 @@ module.exports = function (app) {
     // Locates the users for user Auth
     app.get('/api/find/employees', function (req, res) {
         db.Employee.findAll({}).then(function (respUsers) {
-            console.log(respUsers)
             res.json(respUsers)
         })
     })
 
     app.get('/api/find/employee/:email', function (req, res) {
         db.Employee.findOne({
-            where:{
-                emp_email:req.params.email
+            where: {
+                emp_email: req.params.email
             }
         }).then(function (reqEmployee) {
             res.json(reqEmployee)
@@ -77,18 +86,16 @@ module.exports = function (app) {
     // Find all issues for a given user
     app.get('/api/find/issues', function (req, res) {
         db.Issue.findAll({}).then(function (respTasks) {
-            console.log(respTasks)
             res.json(respTasks)
         })
     })
 
     app.get('/api/find/issuessearch', function (req, res) {
         db.Issue.findAll({
-            where:{
+            where: {
                 confirm_date: null
             }
         }).then(function (respTasks) {
-            console.log(respTasks)
             res.json(respTasks)
         })
     })
@@ -97,9 +104,7 @@ module.exports = function (app) {
     app.post('/api/issue', function (req, res) {
         db.Issue.create(req.body).then(function (conIssue) {
             res.json(conIssue)
-            console.log(conIssue)
             const employeeID = conIssue.employee_id
-            console.log(employeeID)
 
             db.Employee.findOne({
 
@@ -124,93 +129,93 @@ module.exports = function (app) {
                     to: empInfo.emp_email,
                     subject: conIssue.issue_short_descr,
                     text: "Issue Description: " + conIssue.issue_full_descr,
-                    html:"<p>This is to let you know that an issue has been raised regarding your conduct. <br> Please click the link below to view and acknowledge the issue</p><br>" + 
-                         "<a href='http://localhost:3000/search'>Search Issues</a>"
+                    html: "<p>This is to let you know that an issue has been raised regarding your conduct. <br> Please click the link below to view and acknowledge the issue</p><br>" +
+                        "<a href='http://localhost:3000/search'>Search Issues</a>"
                 };
 
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
-            })
-        });
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
+                })
+            });
+        })
     })
-})
 
 
-//post a new user
-app.post('/api/user', function (req, res) {
-    db.User.create(req.body).then(function (userExample) {
-        res.json(userExample)
-        console.log(userExample)
+    //post a new user
+    app.post('/api/user', function (req, res) {
+        db.User.create(req.body).then(function (userExample) {
+            res.json(userExample)
+            console.log(userExample)
 
+        })
     })
-})
 
-//posts a new employee
-app.post('/api/employee', function (req, res) {
-    db.Employee.create(req.body).then(function (conEmployee) {
-        res.json(conEmployee)
-        console.log(conEmployee)
+    //posts a new employee
+    app.post('/api/employee', function (req, res) {
+        db.Employee.create(req.body).then(function (conEmployee) {
+            res.json(conEmployee)
+            aws2.create(conEmployee.id)
+        })
     })
-})
 
-//deletes a selected employee issue
-app.delete('/api/issue/deleteall/:id', function (req, res) {
-    db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-        res.json(dbExample)
+    //deletes a selected employee issue
+    app.delete('/api/issue/deleteall/:id', function (req, res) {
+        db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+            res.json(dbExample)
+        })
     })
-})
 
-//updats the selected issue record
-app.put('/api/issues/:id', function (req, res) {
-    db.Task.update({
-        task_comment: req.body.task_comment,
-        task_name: req.body.task_name,
-        task_day: req.body.task_day
-    }, {
-        where: { id: req.params.id }
-    }).then(function (dbExample) {
-        res.json(dbExample)
+    //updats the selected issue record
+    app.put('/api/issues/:id', function (req, res) {
+        db.Task.update({
+            task_comment: req.body.task_comment,
+            task_name: req.body.task_name,
+            task_day: req.body.task_day
+        }, {
+            where: { id: req.params.id }
+        }).then(function (dbExample) {
+            res.json(dbExample)
+        })
     })
-})
 
-//updats the selected issue record
-app.put('/api/accept/issues/:id', function (req, res) {
-    var today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
+    //updats the selected issue record
+    app.put('/api/accept/issues/:id', function (req, res) {
+        var today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
 
-    today = yyyy + '-' + mm + '-' + dd;
-    const stringDate = today.toString()
+        today = yyyy + '-' + mm + '-' + dd;
+        const stringDate = today.toString()
 
-    console.log(stringDate)
+        console.log(stringDate)
 
-    db.Issue.update({
-        confirm_date: stringDate
-    }, {
-        where: { id: req.params.id }
-    }).then(function (dbExample) {
-        res.json(dbExample)
+        db.Issue.update({
+            confirm_date: stringDate
+        }, {
+            where: { id: req.params.id }
+        }).then(function (dbExample) {
+            res.json(dbExample)
+        })
     })
-})
 
-//updates the selected employee record
-app.put('/api/employee', function (req, res) {
-    db.Employee.update({
-        emp_fname: req.body.emp_fname,
-        emp_lname: req.body.emp_lname,
-        emp_email: req.body.emp_email,
-        emp_pay: req.body.emp_pay,
-        emp_hire_date: req.body.emp_hire_date,
-        emp_photo: req.body.emp_photo
-    }, {
-        where: { id: req.body.id }
-    }).then(function (dbExample) {
-        res.json(dbExample)
+    //updates the selected employee record
+    app.put('/api/employee', function (req, res) {
+        db.Employee.update({
+            emp_fname: req.body.emp_fname,
+            emp_lname: req.body.emp_lname,
+            emp_email: req.body.emp_email,
+            emp_pay: req.body.emp_pay,
+            emp_hire_date: req.body.emp_hire_date,
+            emp_photo: req.body.emp_photo
+        }, {
+            where: { id: req.body.id }
+        }).then(function (dbExample) {
+            res.json(dbExample)
+        })
     })
-})
 }

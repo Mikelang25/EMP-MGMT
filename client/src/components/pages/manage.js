@@ -177,8 +177,9 @@ class Manage extends Component {
     uploadAttach = (event) => {
         const data = new FormData()
         data.append('file', event.target.files[0])
+        const employee = this.state.selectEmployee;
         const fileName = event.target.files[0].name
-        API.uploadFile(data)
+        API.uploadFile(data,employee)
             .then(res => console.log(res.statusText))
             .then(res => {
                 this.setState({
@@ -191,8 +192,9 @@ class Manage extends Component {
 
     uploadFile = (event) => {
         const data = new FormData()
+        const employee = this.state.selectEmployee;
         data.append('file', event.target.files[0])
-        API.uploadFile(data)
+        API.uploadFile(data,employee)
             .then(res => console.log(res.statusText))
             .then(
                 this.setState({

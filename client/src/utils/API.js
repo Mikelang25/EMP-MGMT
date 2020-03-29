@@ -7,8 +7,8 @@ export default {
   updateEmployee: function (employee) {
     return axios.put("/api/employee", employee);
   },
-  uploadFile: function (file) {
-    return axios.post("/uploadfile", file);
+  uploadFile: function (file,employee) {
+    return axios.post("/uploadfile/" + employee, file);
   },
   downloadFile: function (file) {
     return axios.get("/download/" + file);

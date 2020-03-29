@@ -7,7 +7,10 @@ module.exports = {
         "database": process.env.DB_DATABASE,
         "host": "127.0.0.1",
         "dialect": "mysql",
-        "migrationStorageTableName": "sequelize_meta"
+        "migrationStorageTableName": "sequelize_meta",
+        "accessKeyId": process.env.AWSAccessKeyId,
+        "secretAccessKey": process.env.AWSSecretKey,
+        "region": "us-east-2" 
     },
     "test": {
         "username": "root",
