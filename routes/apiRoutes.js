@@ -155,10 +155,19 @@ module.exports = function (app) {
     })
 
     //deletes a selected employee issue
-    app.delete('/api/issue/deleteall/:id', function (req, res) {
-        db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
-            res.json(dbExample)
+    app.delete('/api/issue/deleteall/:id/:employee', function (req, res) {
+        db.Issue.findOne({
+            where: {
+                id: req.params.id
+            }
+        }).then(function (issue) {
+            db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
+                res.json(dbExample)
+            })
+            aws2.delete(issue.issue_attach,req.params.employee)
         })
+
+
     })
 
     //updats the selected issue record

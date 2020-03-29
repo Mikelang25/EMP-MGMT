@@ -22,8 +22,8 @@ export default {
   getIssuesSearch: function (){
     return axios.get("/api/find/issuessearch");
   },
-  deleteIssue: function (issue) {
-    return axios.delete("/api/issue/deleteall/" + issue);
+  deleteIssue: function (issue,employee) {
+    return axios.delete("/api/issue/deleteall/" + issue + "/" + employee);
   },
   createIssue: function (issue) {
     return axios.post("/api/issue", issue);

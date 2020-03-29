@@ -1,9 +1,8 @@
+const AWS = require('aws-sdk');
 
 module.exports = {
 
     create: function (employee) {
-        // Load the AWS SDK for Node.js
-        const AWS = require('aws-sdk');
 
         const bucketName = "emp-mgt-" + employee
         // Create S3 service object
@@ -18,16 +17,15 @@ module.exports = {
         });
 
     },
-    upload: function (selectedFile,employeeID) {
+    upload: function (selectedFile, employeeID) {
         console.log("getting to aws upload")
-        var AWS = require('aws-sdk');
         // Create S3 service object
         s3 = new AWS.S3({ apiVersion: '2006-03-01' });
         const bucketName = "emp-mgt-" + employeeID;
         var file = selectedFile.data;
         var fileName = selectedFile.name
         // call S3 to retrieve upload file to specified bucket
-        var uploadParams = { Bucket: bucketName, Key: fileName, Body: file, ACL : 'public-read' };
+        var uploadParams = { Bucket: bucketName, Key: fileName, Body: file, ACL: 'public-read' };
 
         console.log("getting to aws upload 2")
         // call S3 to retrieve upload file to specified bucket
@@ -39,8 +37,23 @@ module.exports = {
             }
         });
     },
-    download: function (selectedFile,employeeID){
-        
+    delete: function (selectedFile, employeeID) {
+        console.log("getting to aws delete")
+        let bucketInstance = new AWS.S3();
+
+        var params = {
+            Bucket: 'emp-mgt-' + employeeID,
+            Key: selectedFile
+        };
+
+        bucketInstance.deleteObject(params, function (err, data) {
+            if (data) {
+                console.log("File deleted successfully");
+            }
+            else {
+                console.log("Check if you have sufficient permissions : " + err);
+            }
+        });
     }
 }
 

@@ -223,8 +223,9 @@ class Manage extends Component {
 
     deleteIssue = (event) => {
         const markDelete = event.target.value
+        const employee = this.state.selectEmployee
         event.preventDefault();
-        API.deleteIssue(markDelete)
+        API.deleteIssue(markDelete,employee)
             .then(res => {
                 const update_emp_issues = this.state.emp_issues.filter(issue => issue.id != markDelete)
                 this.setState({
