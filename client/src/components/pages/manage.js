@@ -47,8 +47,8 @@ class Manage extends Component {
     };
 
     componentDidMount() {
-        this.loadEmployees()
         this.findIssues() 
+        this.loadEmployees()        
     }
 
     handleInputChange = event => {
@@ -93,6 +93,7 @@ class Manage extends Component {
             issue_full_descr: this.state.new_issue_full_descr,
             issue_attach: this.state.new_attach_name
         }
+        console.log(newIssue)
 
         API.createIssue(newIssue)
             .then(res => {
@@ -104,6 +105,7 @@ class Manage extends Component {
                     issue_attach: res.data.issue_attach
                 }
                 console.log(res.data)
+
                 this.hideModal()
                 const update_emp_issues = this.state.emp_issues
                 update_emp_issues.push(addIssue)
@@ -179,14 +181,12 @@ class Manage extends Component {
         data.append('file', event.target.files[0])
         const employee = this.state.selectEmployee;
         const fileName = event.target.files[0].name
+
+        this.setState({
+            new_attach_name: fileName
+        })
         API.uploadFile(data,employee)
             .then(res => console.log(res.statusText))
-            .then(res => {
-                this.setState({
-                    new_attach_name: fileName
-                })
-                console.log(this.state.new_attach_name)
-            })
             .catch(err => console.log(err));
     }
 
@@ -307,7 +307,7 @@ class Manage extends Component {
                         onHide={this.hideModal}
                         onSubmit={this.submitIssue}
                         onChange={this.handleInputChange}
-                        setattach={this.uploadAttach}
+                        upload={this.uploadAttach}
                     />
                 </div>
             );
@@ -326,7 +326,7 @@ class Manage extends Component {
                         <div className=" row info-container">
                             <div className="col-md-4 main-container">
                                 <div className="image-container">
-                                    <img alt="photo" className="emp-image" src={info.emp_photo} />
+                                    <img alt="photo" className="emp-image" key = {info.id} src={`https://emp-mgt-` + info.id + `.s3.amazonaws.com/` + info.emp_photo} />
                                 </div>
                             </div>
                             <div className="col-md-4 employee-container">
@@ -371,6 +371,7 @@ class Manage extends Component {
                                 <tbody className="table-issue">
                                     {this.state.emp_issues.map(issue => (
                                         <Issue
+                                            employee={this.state.selectEmployee}
                                             key={issue.id}
                                             id={issue.id}
                                             issueShort={issue.issue_short_descr}

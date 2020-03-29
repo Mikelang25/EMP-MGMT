@@ -27,7 +27,7 @@ module.exports = {
         var file = selectedFile.data;
         var fileName = selectedFile.name
         // call S3 to retrieve upload file to specified bucket
-        var uploadParams = { Bucket: bucketName, Key: fileName, Body: file };
+        var uploadParams = { Bucket: bucketName, Key: fileName, Body: file, ACL : 'public-read' };
 
         console.log("getting to aws upload 2")
         // call S3 to retrieve upload file to specified bucket
@@ -38,6 +38,9 @@ module.exports = {
                 console.log("Upload Success", data.Location);
             }
         });
+    },
+    download: function (selectedFile,employeeID){
+        
     }
 }
 

@@ -50,20 +50,10 @@ module.exports = function (app) {
             return res.status(400).send('No files were uploaded.');
         }
 
-        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
         let sampleFile = req.files.file;
-        let File = req.files;
         let selectEmployee =req.params.employee
-        console.log(selectEmployee)
-        console.log(sampleFile)
-
         aws2.upload(sampleFile,selectEmployee)
-        // Use the mv() method to place the file somewhere on your server
-        sampleFile.mv(__dirname + '/../client/public/' + sampleFile.name, function (err) {
-            if (err)
-                return res.status(500).send(err);
-            res.send('File uploaded!');
-        });
+
     });
 
     // Locates the users for user Auth
@@ -159,6 +149,8 @@ module.exports = function (app) {
         db.Employee.create(req.body).then(function (conEmployee) {
             res.json(conEmployee)
             aws2.create(conEmployee.id)
+            let defaultPhoto = '/../client/public/noimage.png'
+            aws2.upload(defaultPhoto ,conEmployee.id)
         })
     })
 

@@ -41,7 +41,7 @@ function Issue(props) {
             <td style={styles.shortDescr}>{props.issueShort}</td>
             <td style={styles.dateCreated}>{props.issueDate}</td>
             <td style={styles.dateCreated}>{props.issueAccept}</td>
-            <td style={styles.file}><a href={props.issueDoc} download>{props.issueDoc}</a></td>
+            <td style={styles.file}><a href={`https://emp-mgt-`+ props.employee + `.s3.amazonaws.com/` + props.issueDoc} download>{props.issueDoc}</a></td>
             <td><p style={styles.longDescr}>{props.issueLong}</p></td>
             <td><button style={styles.button} onClick={props.delete} value={props.id}>Delete</button></td>            
         </tr>
