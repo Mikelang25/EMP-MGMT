@@ -144,13 +144,16 @@ module.exports = function (app) {
         })
     })
 
+    //uploads the default photo to the new employee
+    app.post('/api/defaultphoto/:employee', function (req, res) {
+        aws2.uploadDefault(req.params.employee)
+    })
+
     //posts a new employee
     app.post('/api/employee', function (req, res) {
         db.Employee.create(req.body).then(function (conEmployee) {
             res.json(conEmployee)
             aws2.create(conEmployee.id)
-            let defaultPhoto = '/../client/public/noimage.png'
-            aws2.upload(defaultPhoto ,conEmployee.id)
         })
     })
 
