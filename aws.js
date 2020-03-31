@@ -14,6 +14,7 @@ module.exports = {
             } else {
                 console.log("Success", data.Location);
             }
+            
         });
 
     },
@@ -55,8 +56,8 @@ module.exports = {
             }
         });
     },
-    uploadDefault: function (employeeID) {
-        var AWS = require('aws-sdk');
+    uploadphoto: function (employeeID) {
+        console.log("is this getting to here")
         s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
         // call S3 to retrieve upload file to specified bucket

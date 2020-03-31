@@ -51,8 +51,8 @@ module.exports = function (app) {
         }
 
         let sampleFile = req.files.file;
-        let selectEmployee =req.params.employee
-        aws2.upload(sampleFile,selectEmployee)
+        let selectEmployee = req.params.employee
+        aws2.upload(sampleFile, selectEmployee)
 
     });
 
@@ -134,7 +134,6 @@ module.exports = function (app) {
         })
     })
 
-
     //post a new user
     app.post('/api/user', function (req, res) {
         db.User.create(req.body).then(function (userExample) {
@@ -144,16 +143,14 @@ module.exports = function (app) {
         })
     })
 
-    //uploads the default photo to the new employee
-    app.post('/api/defaultphoto/:employee', function (req, res) {
-        aws2.uploadDefault(req.params.employee)
-    })
-
     //posts a new employee
     app.post('/api/employee', function (req, res) {
         db.Employee.create(req.body).then(function (conEmployee) {
-            res.json(conEmployee)
+            console.log("create employee")
             aws2.create(conEmployee.id)
+            setTimeout(function(){
+                aws2.uploadphoto(conEmployee.id)},5000)
+            res.json(conEmployee)
         })
     })
 
@@ -167,7 +164,7 @@ module.exports = function (app) {
             db.Issue.destroy({ where: { id: req.params.id } }).then(function (dbExample) {
                 res.json(dbExample)
             })
-            aws2.delete(issue.issue_attach,req.params.employee)
+            aws2.delete(issue.issue_attach, req.params.employee)
         })
 
 
