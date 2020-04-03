@@ -15,7 +15,8 @@
   padding-top:25px;
   padding-bottom:25px;
   margin-top:20px;
-  border-radius: 15px;
+  background-image: URL('/random_grey_variations.png');
+  border:1pt solid white;
 }
 
 .info-container{
@@ -29,7 +30,8 @@
   height:70%;
   width: 90%;
   text-align: center;
-  border-radius: 15px;
+  background-image: URL('/random_grey_variations.png');
+  border:1pt solid white;
 }
 
 .lblSubmit{

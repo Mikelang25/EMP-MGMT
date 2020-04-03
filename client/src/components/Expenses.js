@@ -100,6 +100,16 @@ class Expenses extends Component {
             .catch(err => console.log(err));
     }
 
+    removeAccountingItem = (item) => {
+        console.log("this works")
+        API.deleteAccounting(item.target.value)
+        .then(res => {
+            console.log("item deleted")
+            this.getAccountingItems();
+        })
+        .catch(err => console.log(err));
+    }
+
     addAccountingItem = (event) => {
         event.preventDefault();
         console.log("attempting to add item")
@@ -170,6 +180,7 @@ class Expenses extends Component {
                                                 debit={item.budget_debit}
                                                 trantype={item.budget_description}
                                                 comment={item.budget_comment}
+                                                remove = {this.removeAccountingItem}
                                             />
                                         ))}
                                     </tbody>
@@ -245,7 +256,7 @@ class Expenses extends Component {
                                                             { x: item.month + ' - $' + item.monthTotal, y: parseInt(item.monthTotal) }
                                                         ))}
                                                     height={300}
-                                                    colorScale={["tomato", "orange", "red", "grey", "navy"]}
+                                                    colorScale={["purple", "yellow", "red", "black", "navy"]}
                                                     style={{
                                                         labels: {
                                                             fontSize: 15, fill: "white"

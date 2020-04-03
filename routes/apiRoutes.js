@@ -97,6 +97,13 @@ module.exports = function (app) {
         })
     })    
 
+
+    app.delete('/api/accounting/:id', function (req, res) {
+        db.Budget.destroy({ where: { id: req.params.id } }).then(function (accountItem) {
+            res.json(accountItem)
+        })
+    }) 
+
     app.get('/api/find/accounting', function (req, res) {
         db.Budget.findAll({}).then(function (respItems) {
             res.json(respItems)

@@ -43,11 +43,11 @@ function Item(props) {
         <tr style={styles.tr}>
             <td style={styles.shortDescr}>{props.month}</td>
             <td style={styles.tran}>{props.date}</td>
-            <td style={styles.amount}>{props.credit}</td>
-            <td style={styles.amount}>{props.debit}</td>    
+            <td style={styles.amount}>${props.credit}</td>
+            <td style={styles.amount}>${props.debit}</td>    
             <td style={styles.tran}>{props.trantype}</td>        
             <td><p style={styles.comment}>{props.comment}</p></td>
-            <td><button style={styles.button} onClick={props.delete} value={props.id}>X</button></td>            
+            <td><button style={styles.button} onClick={props.remove} value={props.id}>X</button></td>            
         </tr>
     );
 }

@@ -51,5 +51,8 @@ export default {
   },
   postAccounting:function(newItem){
     return axios.post("/api/accounting",newItem)
+  },
+  deleteAccounting:function(itemID){
+    return axios.delete("/api/accounting/" + itemID)
   }
 };

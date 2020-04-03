@@ -33,7 +33,7 @@ const styles = {
         padding:"10px",
         marginTop: "10px",
         marginLeft: "50px",
-        border:"1pt solid black",
+        border:"1pt solid white",
         marginBottom:"20px",
         borderRadius:"5px",
         color:"white"
