@@ -45,5 +45,8 @@ export default {
   },
   updateIssue: function (issue) {
     return axios.put("/api/accept/issues/" + issue);
+  },
+  findAccounting:function(){
+    return axios.get("/api/find/accounting");
   }
 };

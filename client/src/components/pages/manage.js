@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import EmployeeDropItem from "../employeeList";
 import InfoTab from "../Info";
-import Performance from "../Performance";
+import Expenses from "../Expenses";
 import InfoModal from "../employeemodal";
 import IssueModal from "../issuemodal";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -47,8 +47,8 @@ class Manage extends Component {
     };
 
     componentDidMount() {
-        this.findIssues() 
-        this.loadEmployees()        
+        this.findIssues()
+        this.loadEmployees()
     }
 
     handleInputChange = event => {
@@ -105,10 +105,11 @@ class Manage extends Component {
                     issue_attach: res.data.issue_attach
                 }
                 console.log(res.data)
-
                 this.hideModal()
+                this.findIssues()
                 const update_emp_issues = this.state.emp_issues
                 update_emp_issues.push(addIssue)
+                console.log(update_emp_issues)                
                 this.setState({
                     emp_issues: update_emp_issues
                 })
@@ -185,7 +186,7 @@ class Manage extends Component {
         this.setState({
             new_attach_name: fileName
         })
-        API.uploadFile(data,employee)
+        API.uploadFile(data, employee)
             .then(res => console.log(res.statusText))
             .catch(err => console.log(err));
     }
@@ -194,7 +195,7 @@ class Manage extends Component {
         const data = new FormData()
         const employee = this.state.selectEmployee;
         data.append('file', event.target.files[0])
-        API.uploadFile(data,employee)
+        API.uploadFile(data, employee)
             .then(res => console.log(res.statusText))
             .then(
                 this.setState({
@@ -225,7 +226,7 @@ class Manage extends Component {
         const markDelete = event.target.value
         const employee = this.state.selectEmployee
         event.preventDefault();
-        API.deleteIssue(markDelete,employee)
+        API.deleteIssue(markDelete, employee)
             .then(res => {
                 const update_emp_issues = this.state.emp_issues.filter(issue => issue.id != markDelete)
                 this.setState({
@@ -313,7 +314,7 @@ class Manage extends Component {
                 </div>
             );
 
-        } else if (this.state.myTab === "Performance") {
+        } else if (this.state.myTab === "Expenses") {
 
         }
     }
@@ -327,7 +328,7 @@ class Manage extends Component {
                         <div className=" row info-container">
                             <div className="col-md-4 main-container">
                                 <div className="image-container">
-                                    <img alt="photo" className="emp-image" key = {info.id} src={`https://emp-mgt-` + info.id + `.s3.amazonaws.com/` + info.emp_photo} />
+                                    <img alt="photo" className="emp-image" key={info.id} src={`https://emp-mgt-` + info.id + `.s3.amazonaws.com/` + info.emp_photo} />
                                 </div>
                             </div>
                             <div className="col-md-4 employee-container">
@@ -349,10 +350,12 @@ class Manage extends Component {
                     ))}
                 </div>
             );
-        } else if (this.state.myTab === "Performance") {
-            return <Performance
-                employee={this.state.selectEmployee}
-            />;
+        } else if (this.state.myTab === "Expenses") {
+            return (
+                <div class="col-md-12">
+                    <Expenses/>
+                </div>
+            );
         } else if (this.state.myTab === "Issues") {
             return (
                 <div className="wrapper">
@@ -430,7 +433,7 @@ class Manage extends Component {
                     <div className="tab col-md-12">
                         <button className="tablinks" value="Info" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/offices/16/000000/info.png" />Info</button>
                         <button className="tablinks" value="Issues" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/office/16/000000/high-risk.png" />Issues</button>
-                        <button className="tablinks" value="Performance" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/plasticine/16/000000/area-chart.png" />Performance</button>
+                        <button className="tablinks" value="Expenses" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/plasticine/16/000000/area-chart.png" />Budget</button>
                     </div>
                 </div>
                 <div className="row">

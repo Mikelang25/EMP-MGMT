@@ -1,0 +1,24 @@
+
+.table-items{
+    margin-left:30px;
+    margin-top:30px;
+}
+
+.item-table{
+    margin-top:30px;
+    margin-left:30px;
+    width: 50%;
+}
+
+.table-headers{
+    text-align: center;
+    width: 100%;
+  }
+
+.table-container{
+    border:1pt solid white;
+}
+
+.create-container{
+    border:1pt solid white;
+}

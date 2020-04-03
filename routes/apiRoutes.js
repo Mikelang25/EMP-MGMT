@@ -90,6 +90,12 @@ module.exports = function (app) {
         })
     })
 
+    app.get('/api/find/accounting', function (req, res) {
+        db.Budget.findAll({}).then(function (respItems) {
+            res.json(respItems)
+        })
+    })
+
     // Create a new employee issue and sends email to employee
     app.post('/api/issue', function (req, res) {
         db.Issue.create(req.body).then(function (conIssue) {
