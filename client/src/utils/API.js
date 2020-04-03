@@ -48,5 +48,8 @@ export default {
   },
   findAccounting:function(){
     return axios.get("/api/find/accounting");
+  },
+  postAccounting:function(newItem){
+    return axios.post("/api/accounting",newItem)
   }
 };

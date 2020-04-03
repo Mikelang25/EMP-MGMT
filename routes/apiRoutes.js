@@ -90,6 +90,13 @@ module.exports = function (app) {
         })
     })
 
+    app.post('/api/accounting', function (req, res) {
+        db.Budget.create(req.body).then(function (newItem) {
+            console.log("create budget item")
+            res.json(newItem)
+        })
+    })    
+
     app.get('/api/find/accounting', function (req, res) {
         db.Budget.findAll({}).then(function (respItems) {
             res.json(respItems)

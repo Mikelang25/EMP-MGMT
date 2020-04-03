@@ -22,3 +22,40 @@
 .create-container{
     border:1pt solid white;
 }
+
+.new-item-accounting{
+    margin-top:30px;
+}
+
+.lbl-new-item{
+    color: white;
+    margin-left:80px;
+    margin-top:10px;
+}
+
+.input-new-item{
+    margin-left:80px;
+    width: 250px;
+}
+
+.text-new-item{
+    margin-left:80px;
+    width: 250px;
+    height:100px;
+}
+
+.btn-submit-item{
+    margin-top:30px;
+    margin-left:80px;
+    margin-bottom:20px;
+    background-color: rgb(89, 89, 189);
+    color:whitesmoke;
+    text-shadow: none;
+    border:1pt solid black;
+    width:250px;
+}
+
+.dropdown-month{
+    margin-left:80px;
+    width: 250px;
+}
