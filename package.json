@@ -44,6 +44,7 @@
     "react-router-dom": "^5.1.2",
     "sequelize": "^5.8.6",
     "sequelizer": "^1.1.4",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.2",
+    "victory": "^34.1.3"
   }
 }

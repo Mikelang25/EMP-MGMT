@@ -433,7 +433,7 @@ class Manage extends Component {
                     <div className="tab col-md-12">
                         <button className="tablinks" value="Info" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/offices/16/000000/info.png" />Info</button>
                         <button className="tablinks" value="Issues" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/office/16/000000/high-risk.png" />Issues</button>
-                        <button className="tablinks" value="Expenses" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/plasticine/16/000000/area-chart.png" />Budget</button>
+                        <button className="tablinks" value="Expenses" onClick={this.selectedTab}><img className="issue-img" src="https://img.icons8.com/plasticine/16/000000/area-chart.png" />Income/Expenses</button>
                     </div>
                 </div>
                 <div className="row">

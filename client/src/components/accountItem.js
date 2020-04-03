@@ -13,12 +13,13 @@ const styles = {
         verticalAlign:"middle"
     },
     comment:{
-        width:"150px"
+        width:"200px",
+        padding:"none"
     },
     button:{
         backgroundColor: "rgb(89, 89, 189)",
         color:"whitesmoke",
-        width:"50px",
+        width:"30px",
         textShadow: "none",
         border:"1pt solid black",
         marginTop:"6px",
