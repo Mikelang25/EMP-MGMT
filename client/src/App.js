@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch,HashRouter} from "react-router-dom";
 import Login from "./components/pages/login";
 import Manage from "./components/pages/manage";
 import Search from "./components/pages/search";
@@ -7,7 +7,7 @@ import Search from "./components/pages/search";
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <div>
         <Switch>
           <Route exact path="/" component={Login} />
@@ -15,7 +15,7 @@ function App() {
           <Route exact path="/search" component={Search} />
         </Switch>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
