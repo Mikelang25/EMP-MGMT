@@ -240,7 +240,7 @@ class Expenses extends Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-11 text-center graphs">
+                                <div className="col-md-12 text-center graphs">
                                     <div className="row">
                                         <div className="col-md-6 text-center">
                                             <h4>Cash In</h4>
