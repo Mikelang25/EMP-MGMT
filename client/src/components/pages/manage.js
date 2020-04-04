@@ -43,7 +43,8 @@ class Manage extends Component {
         new_issue_date: "",
         new_attach: null,
         new_attach_name: "",
-        new_issue_full_descr: ""
+        new_issue_full_descr: "",
+        photoUploaded:false
     };
 
     componentDidMount() {
@@ -199,10 +200,19 @@ class Manage extends Component {
             .then(res => console.log(res.statusText))
             .then(
                 this.setState({
-                    photo_name: event.target.files[0].name
+                    photo_name: event.target.files[0].name,
+                    photoUploaded:true
                 })
             )
             .catch(err => console.log(err));
+    }
+
+    resetEmployees = () => {
+        API.getEmployees()
+        .then(res => this.setState({
+            employees: res.data
+        }))
+        .catch(err => console.log(err));
     }
 
     loadEmployees = () => {
@@ -251,14 +261,16 @@ class Manage extends Component {
         })
             .then(res => {
 
-                const updatedInfo = this.state.employees.filter(employee => employee.id === this.state.selectEmployee)
-                updatedInfo[0].emp_photo = this.state.photo_name
-                this.setState({
-                    employeeInfo: updatedInfo
-                })
-                console.log(updatedInfo)
-
-                this.loadEmployees()
+                if(this.state.photoUploaded===true){
+                    const updatedInfo = this.state.employees.filter(employee => employee.id === this.state.selectEmployee)
+                    updatedInfo[0].emp_photo = this.state.photo_name
+                    this.setState({
+                        employeeInfo: updatedInfo,
+                        photoUploaded: false
+                    })
+                    console.log(updatedInfo)
+                }
+                this.resetEmployees()
             })
             .catch(err => console.log(err));
     }
@@ -268,7 +280,6 @@ class Manage extends Component {
         event.preventDefault();
         API.logoutUser()
             .then(res => {
-                localStorage.removeItem('authToken')
                 window.location.replace("/")
             })
             .catch(err => console.log(err));
