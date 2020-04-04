@@ -240,7 +240,7 @@ class Expenses extends Component {
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-12 text-center graphs">
+                                <div className="col-md-11 text-center graphs">
                                     <div className="row">
                                         <div className="col-md-6 text-center">
                                             <h4>Cash In</h4>
@@ -249,11 +249,11 @@ class Expenses extends Component {
                                                     this.state.monthCreditTotals.map(item => (
                                                         { x: item.month + ' - $' + item.monthTotal, y: parseInt(item.monthTotal) }
                                                     ))}
-                                                height={300}
+                                                height={250}
                                                 colorScale={["tomato", "orange", "red", "grey", "navy"]}
                                                 style={{
                                                     labels: {
-                                                        fontSize: 15, fill: "white"
+                                                        fontSize: 12, fill: "white"
                                                     }
                                                 }}
 
@@ -266,11 +266,11 @@ class Expenses extends Component {
                                                     this.state.monthDebitTotals.map(item => (
                                                         { x: item.month + ' - $' + item.monthTotal, y: parseInt(item.monthTotal) }
                                                     ))}
-                                                height={300}
+                                                height={250}
                                                 colorScale={["purple", "yellow", "red", "black", "navy"]}
                                                 style={{
                                                     labels: {
-                                                        fontSize: 15, fill: "white"
+                                                        fontSize: 12, fill: "white"
                                                     }
                                                 }}
                                             />
