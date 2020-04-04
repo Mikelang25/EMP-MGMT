@@ -156,6 +156,13 @@ class Expenses extends Component {
                 {this.state.budgetItems.length ? (
                     <div className="col-md-12 table-container">
                         <div className="row">
+                            <div>
+                                <select>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div className="row">
                             <div className="col-md-6 table-hold">
                                 <Table className="item-table" variant="dark" striped bordered hover size="sm">
                                     <thead>

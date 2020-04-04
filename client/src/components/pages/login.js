@@ -45,7 +45,7 @@ class Login extends Component {
         })
             .then(res => {
                 console.log("new user created!")
-                window.location.replace("/manage");
+                this.props.history.push("/manage")
             })
             .catch(err => console.log(err));
     }
@@ -87,7 +87,7 @@ class Login extends Component {
             password: info.password
         })
             .then(res => {
-                window.location.replace("/manage")
+                this.props.history.push("/manage")
             })
             .catch(err => console.log(err));
     }
