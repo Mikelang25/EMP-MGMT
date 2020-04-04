@@ -140,7 +140,7 @@ module.exports = function (app) {
                     subject: conIssue.issue_short_descr,
                     text: "Issue Description: " + conIssue.issue_full_descr,
                     html: "<p>This is to let you know that an issue has been raised regarding your conduct. <br> Please click the link below to view and acknowledge the issue</p><br>" +
-                        "<a href='http://localhost:3000/search'>Search Issues</a>"
+                        "<a href='https://serene-savannah-13108.herokuapp.com/search'>Search Issues</a>"
                 };
 
                 transporter.sendMail(mailOptions, function (error, info) {

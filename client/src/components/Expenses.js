@@ -153,7 +153,6 @@ class Expenses extends Component {
     render() {
         return (
             <div className="wrapper">
-                {this.state.budgetItems.length ? (
                     <div className="col-md-12 table-container">
                         <div className="row">
                             <div>
@@ -277,11 +276,6 @@ class Expenses extends Component {
                             </div>
                         </div>
                     </div>
-                ) : (
-                        <div className="col-md-12">
-                            TABLE
-                        </div>
-                    )}
             </div>
         );
     }
