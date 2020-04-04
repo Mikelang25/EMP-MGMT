@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch,browserHistory} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Login from "./components/pages/login";
 import Manage from "./components/pages/manage";
 import Search from "./components/pages/search";
@@ -7,7 +7,7 @@ import Search from "./components/pages/search";
 
 function App() {
   return (
-    <Router history={browserHistory}>
+    <Router>
       <div>
         <Switch>
           <Route exact path="/" component={Login} />
