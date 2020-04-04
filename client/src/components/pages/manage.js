@@ -250,12 +250,15 @@ class Manage extends Component {
             emp_photo: this.state.photo_name
         })
             .then(res => {
+
                 const updatedInfo = this.state.employees.filter(employee => employee.id === this.state.selectEmployee)
                 updatedInfo[0].emp_photo = this.state.photo_name
                 this.setState({
                     employeeInfo: updatedInfo
                 })
                 console.log(updatedInfo)
+
+                this.loadEmployees()
             })
             .catch(err => console.log(err));
     }
@@ -352,7 +355,7 @@ class Manage extends Component {
             );
         } else if (this.state.myTab === "Expenses") {
             return (
-                <div class="col-md-12">
+                <div className="col-md-12">
                     <Expenses/>
                 </div>
             );

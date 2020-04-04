@@ -66,3 +66,16 @@
     margin-left:80px;
     width: 250px;
 }
+
+.lbl-sl-year{
+    margin-top:15px;
+    margin-left:40px;
+    color:white;
+    font-size: 15pt;
+}
+
+.dropdown-year{
+    margin-left:20px;
+    margin-top:15px;
+    width: 100px;
+}

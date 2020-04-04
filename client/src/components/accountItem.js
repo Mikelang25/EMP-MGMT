@@ -30,7 +30,6 @@ const styles = {
         padding:"10px"
     },
     amount:{
-        textAlign:"center",
         width:"100px",
         textAlign:"center",
         marginRight:"15px",

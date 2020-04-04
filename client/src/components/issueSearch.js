@@ -5,7 +5,6 @@ const styles = {
         width:"300px"
     },
     dateCreated:{
-        textAlign:"center",
         width:"250px",
         textAlign:"center",
         marginRight:"15px",
