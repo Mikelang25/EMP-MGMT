@@ -45,7 +45,7 @@ class Login extends Component {
         })
             .then(res => {
                 console.log("new user created!")
-                this.props.history.push("/manage")
+                this.props.history.push("/manage")                
             })
             .catch(err => console.log(err));
     }

@@ -268,6 +268,7 @@ class Manage extends Component {
         event.preventDefault();
         API.logoutUser()
             .then(res => {
+                localStorage.removeItem('authToken')
                 window.location.replace("/")
             })
             .catch(err => console.log(err));

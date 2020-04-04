@@ -10,7 +10,7 @@ module.exports = {
         "migrationStorageTableName": "sequelize_meta",
         "accessKeyId": process.env.AWSAccessKeyId,
         "secretAccessKey": process.env.AWSSecretKey,
-        "region": "us-east-2" 
+        "region": "us-east-2"
     },
     "test": {
         "username": "root",
@@ -24,6 +24,6 @@ module.exports = {
         "use_env_variable": "JAWSDB_URL",
         "dialect": "mysql",
         "accessKeyId": "AWSAccessKeyId",
-        "secretAccessKey": "AWSSecretKey",
+        "secretAccessKey": "AWSSecretKey"
     }
 }

@@ -5,6 +5,22 @@ const aws2 = require("../aws")
 
 module.exports = function (app) {
 
+    app.get('/manage', function (req, res) {
+        res.sendFile(path.join(__dirname, '../client/public/index.html'), function (err) {
+            if (err) {
+                res.status(500).send(err)
+            }
+        })
+    })
+
+    app.get('/search', function (req, res) {
+        res.sendFile(path.join(__dirname, '../client/public/index.html'), function (err) {
+            if (err) {
+                res.status(500).send(err)
+            }
+        })
+    })
+
     app.post("/api/aws/test", function (req, res) {
         aws2.create("empt-mgt-3")
     });
@@ -95,14 +111,14 @@ module.exports = function (app) {
             console.log("create budget item")
             res.json(newItem)
         })
-    })    
+    })
 
 
     app.delete('/api/accounting/:id', function (req, res) {
         db.Budget.destroy({ where: { id: req.params.id } }).then(function (accountItem) {
             res.json(accountItem)
         })
-    }) 
+    })
 
     app.get('/api/find/accounting', function (req, res) {
         db.Budget.findAll({}).then(function (respItems) {
@@ -168,8 +184,9 @@ module.exports = function (app) {
         db.Employee.create(req.body).then(function (conEmployee) {
             console.log("create employee")
             aws2.create(conEmployee.id)
-            setTimeout(function(){
-                aws2.uploadphoto(conEmployee.id)},5000)
+            setTimeout(function () {
+                aws2.uploadphoto(conEmployee.id)
+            }, 5000)
             res.json(conEmployee)
         })
     })
