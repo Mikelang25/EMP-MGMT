@@ -6,13 +6,15 @@ const styles = {
     fontWeight: "bold",
     marginTop: "10px",
     marginLeft: "50px",
-    color:"white"
+    color:"white",
+    fontFamily: "'Playfair Display SC', serif"
   },
   inputs: {
     marginLeft: "50px",
     width: "80%",
     borderRadius: "10px",
-    paddingLeft: "10px"
+    paddingLeft: "10px",
+    fontFamily:"'Gotu', sans-serif"
   },
   form: {
   },
@@ -23,7 +25,8 @@ const styles = {
     color: "white",
     width: "100px",
     height: "40px",
-    borderRadius:"5px"
+    borderRadius:"5px",
+    fontFamily: "'Playfair Display SC', serif"
   },
   button2: {
     marginTop: "30px",
@@ -32,10 +35,12 @@ const styles = {
     color: "white",
     width: "100px",
     height: "40px",
-    borderRadius:"5px"
+    borderRadius:"5px",
+    fontFamily: "'Playfair Display SC', serif"
   },
   selectFile: {
-    marginLeft: "50px"
+    marginLeft: "50px",
+    fontFamily:"'Gotu', sans-serif"
   },
   modal:{
     backgroundImage:"url('./dark_fish_skin.png')"
@@ -48,7 +53,8 @@ const styles = {
     backgroundColor:"black"
   },
   modalTitle:{
-    border:"1 solid black"
+    border:"1 solid black",
+    fontFamily: "'Playfair Display SC', serif"
   }
 }
 

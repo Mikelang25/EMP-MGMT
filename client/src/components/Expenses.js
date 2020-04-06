@@ -8,7 +8,8 @@ import { VictoryPie } from "victory";
 class Expenses extends Component {
 
     state = {
-        budgetItems: [],
+        totalbudgetItems: [],
+        budgetItems:[],
         months: ["select", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         tranTypes: ["select", "cash deposit", "cash disbursement", "sale", "expense"],
         tranYears: ["select", "2019", "2020", "2021"],
@@ -32,6 +33,31 @@ class Expenses extends Component {
             [name]: value
         });
     };
+    selectYearItemsLoad = (year) => {
+        const selectedYear = parseInt(year);
+        const selectedItems = this.state.totalbudgetItems.filter(item => item.budget_year == selectedYear)
+        console.log(selectedItems)
+
+        this.setState({
+            budgetItems: selectedItems
+        }, () => {
+            this.getCreditTotals()
+            this.getDebitTotals()
+        });
+    }
+
+    selectYearItems = (event) => {
+        const selectedYear = parseInt(event.target.value);
+        const selectedItems = this.state.totalbudgetItems.filter(item => item.budget_year == selectedYear)
+        console.log(selectedItems)
+
+        this.setState({
+            budgetItems: selectedItems
+        }, () => {
+            this.getCreditTotals()
+            this.getDebitTotals()
+        });
+    }
 
     getCreditTotals = () => {
         console.log("getting credit totals")
@@ -90,22 +116,26 @@ class Expenses extends Component {
     getAccountingItems = () => {
         API.findAccounting()
             .then(res => this.setState({
-                budgetItems: res.data
+                totalbudgetItems: res.data
             }))
             .then(res => {
                 console.log(this.state.budgetItems)
-                this.getCreditTotals()
-                this.getDebitTotals()
             })
             .catch(err => console.log(err));
     }
 
     removeAccountingItem = (item) => {
         console.log("this works")
-        API.deleteAccounting(item.target.value)
+        let deletedItem = item.target.value
+        API.deleteAccounting(deletedItem)
             .then(res => {
                 console.log("item deleted")
-                this.getAccountingItems();
+                let updateTotal = this.state.totalbudgetItems.filter(item => item.id != deletedItem)
+                let updatedFiltered = this.state.budgetItems.filter(item => item.id != deletedItem)
+                this.setState({
+                    totalbudgetItems:updateTotal,
+                    budgetItems:updatedFiltered
+                })
             })
             .catch(err => console.log(err));
     }
@@ -157,7 +187,7 @@ class Expenses extends Component {
                     <div className="row">
                         <div>
                             <span className="lbl-sl-year">Year</span>
-                            <select className="dropdown-year">
+                            <select className="dropdown-year" defaultValue="" onChange={this.selectYearItems}>
                                 {this.state.tranYears.map(year => (
                                     <option key={year} value={year}>
                                         {year}
@@ -243,7 +273,7 @@ class Expenses extends Component {
                                 <div className="col-md-11 text-center graphs">
                                     <div className="row">
                                         <div className="col-md-6 text-center">
-                                            <h4>Cash In</h4>
+                                            <h4 className="graph-head">Cash In</h4>
                                             <VictoryPie
                                                 data={
                                                     this.state.monthCreditTotals.map(item => (
@@ -260,7 +290,7 @@ class Expenses extends Component {
                                             />
                                         </div>
                                         <div className="col-md-6 text-center">
-                                            <h4>Cash Out</h4>
+                                            <h4 className="graph-head">Cash Out</h4>
                                             <VictoryPie
                                                 data={
                                                     this.state.monthDebitTotals.map(item => (

@@ -5,22 +5,6 @@ const aws2 = require("../aws")
 
 module.exports = function (app) {
 
-    app.get('/manage', function (req, res) {
-        res.sendFile(__dirname + '/../client/public/index.html'), function (err) {
-            if (err) {
-                res.status(500).send(err)
-            }
-        }
-    })
-
-    app.get('/search', function (req, res) {
-        res.sendFile(__dirname + '/../client/public/index.html'), function (err) {
-            if (err) {
-                res.status(500).send(err)
-            }
-        }
-    })
-
     app.post("/api/aws/test", function (req, res) {
         aws2.create("empt-mgt-3")
     });
@@ -188,6 +172,12 @@ module.exports = function (app) {
                 aws2.uploadphoto(conEmployee.id)
             }, 5000)
             res.json(conEmployee)
+        })
+    })
+
+    app.delete('/api/employee/:id', function (req, res) {
+        db.Employee.destroy({ where: { id: req.params.id } }).then(function (employeeInfo) {
+            res.json(employeeInfo)
         })
     })
 

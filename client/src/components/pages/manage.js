@@ -44,7 +44,7 @@ class Manage extends Component {
         new_attach: null,
         new_attach_name: "",
         new_issue_full_descr: "",
-        photoUploaded:false
+        photoUploaded: false
     };
 
     componentDidMount() {
@@ -110,7 +110,7 @@ class Manage extends Component {
                 this.findIssues()
                 const update_emp_issues = this.state.emp_issues
                 update_emp_issues.push(addIssue)
-                console.log(update_emp_issues)                
+                console.log(update_emp_issues)
                 this.setState({
                     emp_issues: update_emp_issues
                 })
@@ -201,7 +201,7 @@ class Manage extends Component {
             .then(
                 this.setState({
                     photo_name: event.target.files[0].name,
-                    photoUploaded:true
+                    photoUploaded: true
                 })
             )
             .catch(err => console.log(err));
@@ -209,10 +209,10 @@ class Manage extends Component {
 
     resetEmployees = () => {
         API.getEmployees()
-        .then(res => this.setState({
-            employees: res.data
-        }))
-        .catch(err => console.log(err));
+            .then(res => this.setState({
+                employees: res.data
+            }))
+            .catch(err => console.log(err));
     }
 
     loadEmployees = () => {
@@ -230,6 +230,16 @@ class Manage extends Component {
                 issues: res.data
             }))
             .catch(err => console.log(err));
+    }
+
+    deleteEmployee = (event) => {
+        event.preventDefault();
+        let employee = this.state.selectEmployee
+        API.deleteEmployee(employee)
+            .then(res => {
+                console.log("employee has been deleted")
+                this.loadEmployees();
+            });
     }
 
     deleteIssue = (event) => {
@@ -261,7 +271,7 @@ class Manage extends Component {
         })
             .then(res => {
 
-                if(this.state.photoUploaded===true){
+                if (this.state.photoUploaded === true) {
                     const updatedInfo = this.state.employees.filter(employee => employee.id === this.state.selectEmployee)
                     updatedInfo[0].emp_photo = this.state.photo_name
                     this.setState({
@@ -304,6 +314,9 @@ class Manage extends Component {
                 <div>
                     <Button key={this.state.selectEmployee} className="emp-create" variant="primary" onClick={this.showModal}>
                         Create Employee
+                    </Button>
+                    <Button className="emp-create" onClick={this.deleteEmployee}>
+                        Delete Employee
                     </Button>
                     <InfoModal
                         show={this.state.modalShow}
@@ -368,7 +381,7 @@ class Manage extends Component {
         } else if (this.state.myTab === "Expenses") {
             return (
                 <div className="col-md-12">
-                    <Expenses/>
+                    <Expenses />
                 </div>
             );
         } else if (this.state.myTab === "Issues") {

@@ -5,13 +5,16 @@ const styles = {
         fontWeight: "bold",
         marginTop: "15px",
         marginLeft: "50px",
-        color:"white"
+        color:"white",
+        font:"48pt",
+        fontFamily: "'Playfair Display SC', serif"
     },
     inputs: {
         marginLeft: "50px",
         width: "70%",
         paddingLeft: "10px",
-        borderRadius:"15px"
+        borderRadius:"15px",  
+        fontFamily:"'Gotu', sans-serif"      
     },
     form: {
         borderRadius:"15px"
@@ -26,7 +29,8 @@ const styles = {
         textShadow: "none",
         border:"1pt solid black",
         marginBottom:"20px",
-        borderRadius:"5px"
+        borderRadius:"5px",
+        fontFamily: "'Playfair Display SC', serif"
     },
     selectFile: {
         padding:"10px",
@@ -35,7 +39,8 @@ const styles = {
         border:"1pt solid white",
         marginBottom:"20px",
         borderRadius:"5px",
-        color:"white"
+        color:"white",
+        fontFamily:"'Gotu', sans-serif"  
     }
 }
 

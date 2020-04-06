@@ -3,6 +3,7 @@
     margin-top:30px;
     color:white;
     font-size: 18pt;
+    font-family: 'Playfair Display SC', serif;
 }
 
 .inp-search{
@@ -10,6 +11,7 @@
     border-radius: 10px;
     width: 400px;
     padding-left: 5px;
+    font-Family:"'Gotu', sans-serif";
 }
 
 .btn-search{

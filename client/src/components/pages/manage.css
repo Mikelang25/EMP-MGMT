@@ -9,6 +9,8 @@
   color:black;
   margin-top:20px;
   padding-left: 10px;
+  font-Family:"'Gotu', sans-serif";
+  font-size:14pt ;
 }
 
 .employee-container{
@@ -57,6 +59,7 @@
 
 .table-headers{
   text-align: center;
+  font-family: 'Playfair Display SC', serif;
 }
 
 .thumbs{
@@ -75,12 +78,15 @@
 
 
 .emp-create{
+  font-size: 9pt;
   margin-top:20px;
+  margin-left:30px;
   background-color: rgb(89, 89, 189);
   color:whitesmoke;
   width:150px;
   text-shadow: none;
   border:1pt solid black;
+  font-family: 'Playfair Display SC', serif;
 }
 
 .emp-create:hover{
@@ -98,6 +104,8 @@
   margin-right:15px;
   text-shadow: none;
   border:1pt solid black;
+  font-family: 'Playfair Display SC', serif;
+  font-size: 9pt;;
 }
 
 .btn-logout:hover{
@@ -131,7 +139,7 @@
     margin-top:15px;
     border: 1px solid #ccc;
     background-color: black;
-    
+    font-family: 'Francois One', sans-serif;
   }
   
   .tab button {

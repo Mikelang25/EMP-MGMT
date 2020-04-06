@@ -16,6 +16,9 @@ export default {
   createEmployee: function (employee) {
     return axios.post("/api/employee", employee);
   },
+  deleteEmployee: function(employee){
+    return axios.delete("/api/employee/" + employee)
+  },
   getIssues: function (employee) {
     return axios.get("/api/find/issues/");
   },

@@ -28,6 +28,7 @@
     color: white;
     margin-left:80px;
     margin-top:10px;
+    font-family: 'Playfair Display SC', serif;
 }
 
 .graphs{
@@ -43,6 +44,7 @@
 .input-new-item{
     margin-left:80px;
     width: 250px;
+    font-Family:"'Gotu', sans-serif";
 }
 
 .text-new-item{
@@ -60,11 +62,14 @@
     text-shadow: none;
     border:1pt solid black;
     width:250px;
+    font-family: 'Playfair Display SC', serif;
+    border-radius: 5px;
 }
 
 .dropdown-month{
     margin-left:80px;
     width: 250px;
+    font-Family:"'Gotu', sans-serif";
 }
 
 .lbl-sl-year{
@@ -72,10 +77,16 @@
     margin-left:40px;
     color:white;
     font-size: 15pt;
+    font-family: 'Playfair Display SC', serif;
 }
 
 .dropdown-year{
     margin-left:20px;
     margin-top:15px;
     width: 100px;
+    font-Family:"'Gotu', sans-serif";
+}
+
+.graph-head{
+    font-family: 'Playfair Display SC', serif;
 }

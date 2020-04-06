@@ -2,16 +2,19 @@ import React from "react";
 
 const styles = {
     shortDescr:{
-        width:"300px"
+        width:"300px",
+        fontFamily:"'Gotu', sans-serif"
     },
     dateCreated:{
         width:"250px",
         textAlign:"center",
         marginRight:"15px",
-        verticalAlign:"middle"
+        verticalAlign:"middle",
+        fontFamily:"'Gotu', sans-serif"
     },
     longDescr:{
-        width:"450px"
+        width:"450px",
+        fontFamily:"'Gotu', sans-serif"
     },
     button:{
         backgroundColor: "rgb(89, 89, 189)",
@@ -21,13 +24,15 @@ const styles = {
         border:"1pt solid black",
         marginTop:"6px",
         marginLeft:"8px",
-        borderRadius:"5px"
+        borderRadius:"5px",
+        fontFamily: "'Playfair Display SC', serif"
     },
     file:{
         width:"350px",
         textAlign:"center",
         marginLeft:"20px",
-        marginRight:"30px"
+        marginRight:"30px",
+        fontFamily:"'Gotu', sans-serif"
     },
     tr:{
         padding:"10px"
