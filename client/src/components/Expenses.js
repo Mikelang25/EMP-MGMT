@@ -119,7 +119,7 @@ class Expenses extends Component {
                 totalbudgetItems: res.data
             }))
             .then(res => {
-                console.log(this.state.budgetItems)
+                console.log(this.state.totalbudgetItems)
             })
             .catch(err => console.log(err));
     }
@@ -136,6 +136,8 @@ class Expenses extends Component {
                     totalbudgetItems:updateTotal,
                     budgetItems:updatedFiltered
                 })
+                this.getCreditTotals();
+                this.getDebitTotals();
             })
             .catch(err => console.log(err));
     }
@@ -157,6 +159,8 @@ class Expenses extends Component {
 
         var todayDate = new Date().toISOString().slice(0, 10);
 
+        let yearSelect = this.state.selectedYear
+
         API.postAccounting({
             budget_year: this.state.selectedYear,
             budget_month: this.state.selectedMonth,
@@ -168,14 +172,32 @@ class Expenses extends Component {
         })
             .then(res => {
                 console.log(res.data)
-                this.getAccountingItems()
+                let addItem = {
+                    budget_year:res.data.budget_year,
+                    budget_month:res.data.budget_month,
+                    budget_credit:res.data.budget_credit,
+                    budget_debit:res.data.budget_debit,
+                    budget_description:res.data.budget_description,
+                    budget_comment: res.data.budget_comment,
+                    budget_tran_date:res.data.budget_tran_date
+                }
+                const updateTotal = this.state.totalbudgetItems
+                updateTotal.push(addItem)
+                const updatedFiltered = this.state.budgetItems
+                updatedFiltered.push(addItem)
+
                 this.setState({
                     selectedType: "select",
                     selectedMonth: "select",
                     selectedYear: "select",
                     tranAmount: "",
-                    tranDescr: ""
-                })
+                    tranDescr: "",
+                    totalbudgetItems:updateTotal,
+                    budgetItems:updatedFiltered
+                }, () => {
+                    this.getCreditTotals()
+                    this.getDebitTotals()
+                });
             })
             .catch(err => console.log(err));
     }

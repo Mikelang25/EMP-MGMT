@@ -31,6 +31,7 @@
   padding:25px;
   height:70%;
   width: 90%;
+  max-width: 90%;
   text-align: center;
   background-image: URL('/random_grey_variations.png');
   border:1pt solid white;
@@ -131,7 +132,6 @@
   border:1pt solid black;
   border-radius: 5px;
   margin-top:30px;
-
 }
 
 .tab {
