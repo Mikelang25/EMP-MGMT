@@ -108,7 +108,7 @@ class Search extends Component {
                             </tbody>
                         </Table> ):(
                             <div>
-                                <h2 className="text-center no-issues">Enter your email to search for open issues</h2>
+                                <h2 className="text-center no-issues2">Enter your email to search for open issues</h2>
                             </div>
                         )}
                     </div>
