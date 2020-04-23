@@ -3,18 +3,18 @@
 This app is designed to be used by a manager or owner to track employee information and issues related to that employee whether that be performance based or behavioral. When a new issue is created for an employee. An alert will be sent to the employee's email on file that will have a link to the search tab of the app which will allow them to search and then confirm that they have reviewed the issue. There is also a section for the owner to track debits and credits by year and also see it graphical. The item can be as granular as they desire. 
 
 
-#### User/Admin of the app will be able to do the following: 
+_User/Admin of the app will be able to do the following:_ 
 
-* Employees Tab
+* **Employees Tab**
     * Create a new employee 
     * Modify employee information
     * Remove employees 
 
-* Issues Tab 
+* **Issues Tab** 
     * Create new issues 
     * Remove issues 
 
-* Expenses Tab  
+* **Expenses Tab**  
     * Enter credits/debits by year to track expenses 
     * Show graphically where debits and credits were by month
 
