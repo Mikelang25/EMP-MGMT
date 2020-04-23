@@ -1,4 +1,5 @@
-# **Employee Issue Management** ![Employee Logo](readImages/employee.png)
+# **Employee Issue Management**  
+![Employee Logo](/readImages/employee.png)
 
 This app is designed to be used by a manager or owner to track employee information and issues related to that employee whether that be performance based or behavioral. When a new issue is created for an employee. An alert will be sent to the employee's email on file that will have a link to the search tab of the app which will allow them to search and then confirm that they have reviewed the issue. There is also a section for the owner to track debits and credits by year and also see it graphical. The item can be as granular as they desire. 
 
